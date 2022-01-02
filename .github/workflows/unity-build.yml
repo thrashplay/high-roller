@@ -1,0 +1,65 @@
+name: Build Unity project
+
+on: 
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  update_release_draft:
+    outputs:
+      release_tag: ${{ steps.draft_release.outputs.tag_name }}
+    runs-on: ubuntu-latest
+    steps:
+      - id: draft_release
+        uses: release-drafter/release-drafter@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  unity_build:
+    name: Build for ${{ matrix.targetPlatform }}
+    needs: update_release_draft
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        targetPlatform:
+          - StandaloneOSX
+          - StandaloneWindows64 
+          - StandaloneLinux64
+          - Android
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          lfs: true
+      - uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-High-Roller-${{ matrix.targetPlatform }}
+          restore-keys: |
+            Library-High-Roller-
+            Library-
+      - uses: game-ci/unity-builder@v2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+        with:
+          buildName: High-Roller
+          targetPlatform: ${{ matrix.targetPlatform }}
+      - if: matrix.targetPlatform == 'StandaloneLinux64'
+        run: |
+          cd "build/${{ matrix.targetPlatform }}"
+          tar -zcvf "/tmp/High-Roller-${{ matrix.targetPlatform }}.tar.gz" .
+          gh release upload --clobber ${{ env.VERSION }} "/tmp/High-Roller-${{ matrix.targetPlatform }}.tar.gz"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ needs.update_release_draft.outputs.release_tag }}
+      - if: matrix.targetPlatform != 'StandaloneLinux64'
+        run: |
+          cd "build/${{ matrix.targetPlatform }}"
+          zip -r "/tmp/High-Roller-${{ matrix.targetPlatform }}.zip" .
+          gh release upload --clobber ${{ env.VERSION }} "/tmp/High-Roller-${{ matrix.targetPlatform }}.zip"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VERSION: ${{ needs.update_release_draft.outputs.release_tag }}

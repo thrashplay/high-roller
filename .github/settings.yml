@@ -1,0 +1,66 @@
+repository:
+  allow_auto_merge: true
+  allow_merge_commit: false
+  allow_rebase_merge: false
+  allow_squash_merge: true
+  default_branch: main
+  delete_branch_on_merge: true
+  description: A platform game where you guide a ball through a 3D course full of physics-based obstacles and dangerous creatures.
+  has_wiki: false
+  homepage: https://thrashplay.com/projects/high-roller/
+  private: false
+  topics: game, unity, game-development, unity3d, 1gam
+
+branches:
+  - name: main
+    protection:
+      required_pull_request_reviews: null
+      required_status_checks:
+        strict: true
+        contexts: 
+        - Build for Android
+        - Build for StandaloneLinux64
+        - Build for StandaloneOSX
+        - Build for StandaloneWindows64
+        - validate-pr
+      enforce_admins: false
+      required_linear_history: true
+      restrictions: null
+
+labels:
+  # type of issue
+  - name: bug
+    color: d73a4a
+    description: Something isn't working 
+  - name: enhancement
+    color: a2eeef
+    description: New feature or request
+  - name: juice
+    color: a2eeef
+    description: Enhanced effects, 'wow' factor, etc.
+  - name: spike
+    color: FBCA04
+    description: Further information is needed
+  # issue size
+  - name: size:1
+    color: ffffff
+  - name: size:2
+    color: ffffff
+  - name: size:3
+    color: ffffff
+  - name: size:5
+    color: ffffff
+  - name: size:8
+    color: ffffff
+  # feature area
+  - name: Enemies
+    color: 28C66A
+    description: Creating enemy behavior or assets.
+  - name: Level Design
+    color: 28C66A
+    description: Level design, construction, and asset design.
+
+milestones:
+  - title: January 2022
+    description: Initial release of One Game a Month project.
+    state: open

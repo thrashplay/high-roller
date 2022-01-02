@@ -1,0 +1,9 @@
+change-template: '- $TITLE (#$NUMBER)'
+name-template: $RESOLVED_VERSION
+tag-template: v$RESOLVED_VERSION
+template: |
+  ## What’s Changed
+
+  $CHANGES
+version-resolver:
+  default: patch
