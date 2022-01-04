@@ -28,30 +28,63 @@ public class PlayerMovement : MonoBehaviour
     {
         var position = new Vector3(0, 1, 0);
 
-        // _body.AddForceAtPosition(_force * GetMovementVector(), position, ForceMode.Force);
-
-        if (IsPressing(new KeyCode[] { KeyCode.S }))
-        {
-            _body.AddForceAtPosition(new Vector3(-_force, 0, 0), position, ForceMode.Force);
-        }
-        else if (IsPressing(new KeyCode[] { KeyCode.F }))
-        {
-            _body.AddForceAtPosition(new Vector3(_force, 0, 0), position, ForceMode.Force);
-        }
-        
-        if (IsPressing(new KeyCode[] { KeyCode.E }))
-        {
-            _body.AddForceAtPosition(new Vector3(0, 0, _force), position, ForceMode.Force);
-        }        
-        else if (IsPressing(new KeyCode[] { KeyCode.D }))
-        {
-            _body.AddForceAtPosition(new Vector3(0, 0, -_force), position, ForceMode.Force);
-        }
+        _body.AddForceAtPosition(_force * GetMovementVector(), position, ForceMode.Force);
     }
 
     private Vector3 GetMovementVector()
     {
-        return Vector3.zero;
+        var x = 0;
+        var z = 0;
+        if (IsPressed(DirectionKey.Right))
+        {
+            if (IsPressed(DirectionKey.Up))
+            {
+                x = 1;
+                z = 1;
+            }
+            else if (IsPressed(DirectionKey.Down))
+            {
+                x = 1;
+                z = -1;
+            }
+            else
+            {
+                x = 1;
+                z = 0;
+            }
+        }
+        else if (IsPressed(DirectionKey.Left))
+        {
+            if (IsPressed(DirectionKey.Up))
+            {
+                x = -1;
+                z = 1;
+            }
+            else if (IsPressed(DirectionKey.Down))
+            {
+                x = -1;
+                z = -1;            
+            }
+            else
+            {
+                x = -1;
+                z = 0;            
+            }
+        }
+        else if (IsPressed(DirectionKey.Up))
+        {
+            x = 0;
+            z = 1;
+        }
+        else if (IsPressed(DirectionKey.Down))
+        {
+            x = 0;
+            z = -1;        
+        }
+
+        var mapRotation = Camera.main.transform.eulerAngles.y;
+        var vector = new Vector3(x, 0, z);
+        return mapRotation == 0 ? vector : Quaternion.AngleAxis(mapRotation, Vector3.up) * vector;
     }
 
     private bool IsPressed(DirectionKey direction)
