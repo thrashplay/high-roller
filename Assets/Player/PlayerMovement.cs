@@ -3,103 +3,65 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public enum DirectionKey
-{
-    Down,
-    Left,
-    Right,
-    Up
-}
-
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody _body;
 
+    private PlayerInputController _inputController;
+
     [SerializeField]
-    private float _force = 10;
+    private PlayerConfigModule _playerConfig;
 
     // Start is called before the first frame update
     void Start()
     {
         _body = GetComponent<Rigidbody>();
+        _inputController = GetComponent<PlayerInputController>();
     }
 
     void FixedUpdate()
     {
-        var position = new Vector3(0, 1, 0);
+        var currentDirection = _inputController.GetRequestedDirection();
 
-        _body.AddForceAtPosition(_force * GetMovementVector(), position, ForceMode.Force);
+        if (currentDirection != Direction.None) {
+            var position = new Vector3(0, 1, 0);
+            var vector = GetMovementVector(currentDirection);
+
+            // we apply only one of stationary boost, reverse boost or turn boost, favoring them in that order
+            if (_playerConfig.StationaryBoost > 0 && !IsMoving()) {
+                _body.AddForceAtPosition(_playerConfig.StationaryBoost * vector, position, ForceMode.Impulse);
+            } else if (_playerConfig.ReverseBoost > 0 && _inputController.IsReversed()) {
+                _body.AddForceAtPosition(_playerConfig.ReverseBoost * vector, position, ForceMode.Impulse);
+            } else if (_playerConfig.TurnBoost > 0 && _inputController.IsTurned()) {
+                _body.AddForceAtPosition(_playerConfig.TurnBoost * vector, position, ForceMode.Impulse);
+            }
+
+            _body.AddForceAtPosition(_playerConfig.ContinuousForce * vector, position, ForceMode.Force);
+        }
     }
 
-    private Vector3 GetMovementVector()
+    // uses the player config's "stationary threshold" to determine if the player is moving
+    private bool IsMoving()
     {
-        var x = 0;
-        var z = 0;
-        if (IsPressed(DirectionKey.Right))
-        {
-            if (IsPressed(DirectionKey.Up))
-            {
-                x = 1;
-                z = 1;
-            }
-            else if (IsPressed(DirectionKey.Down))
-            {
-                x = 1;
-                z = -1;
-            }
-            else
-            {
-                x = 1;
-                z = 0;
-            }
-        }
-        else if (IsPressed(DirectionKey.Left))
-        {
-            if (IsPressed(DirectionKey.Up))
-            {
-                x = -1;
-                z = 1;
-            }
-            else if (IsPressed(DirectionKey.Down))
-            {
-                x = -1;
-                z = -1;            
-            }
-            else
-            {
-                x = -1;
-                z = 0;            
-            }
-        }
-        else if (IsPressed(DirectionKey.Up))
-        {
-            x = 0;
-            z = 1;
-        }
-        else if (IsPressed(DirectionKey.Down))
-        {
-            x = 0;
-            z = -1;        
-        }
+        return _body.velocity.magnitude >= _playerConfig.StationaryThreshold;
+    }
+
+    // calculate the movement vector for the given direction
+    private Vector3 GetMovementVector(Direction direction)
+    {
+        var vector = direction switch {
+            Direction.East => new Vector3(1, 0, 0),
+            Direction.Northeast => new Vector3(1, 0, 1),
+            Direction.North => new Vector3(0, 0, 1),
+            Direction.Northwest => new Vector3(-1, 0, 1),
+            Direction.West => new Vector3(-1, 0, 0),
+            Direction.Southwest => new Vector3(-1, 0, -1),
+            Direction.South => new Vector3(0, 0, -1),
+            Direction.Southeast => new Vector3(1, 0, -1),
+            _ => Vector3.zero,
+        };
 
         var mapRotation = Camera.main.transform.eulerAngles.y;
-        var vector = new Vector3(x, 0, z);
         return mapRotation == 0 ? vector : Quaternion.AngleAxis(mapRotation, Vector3.up) * vector;
-    }
-
-    private bool IsPressed(DirectionKey direction)
-    {
-        return direction switch {
-            DirectionKey.Down => IsPressing(new KeyCode[] { KeyCode.D }),
-            DirectionKey.Left => IsPressing(new KeyCode[] { KeyCode.S }),
-            DirectionKey.Right => IsPressing(new KeyCode[] { KeyCode.F }),
-            DirectionKey.Up => IsPressing(new KeyCode[] { KeyCode.E }),
-            _ => false
-        };
-    }
-
-    private bool IsPressing(KeyCode[] keyCodes)
-    {
-        return keyCodes.Any(keyCode => Input.GetKey(keyCode));
     }
 }
