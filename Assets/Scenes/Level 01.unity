@@ -30990,6 +30990,7 @@ GameObject:
   - component: {fileID: 1943855766}
   - component: {fileID: 1943855767}
   - component: {fileID: 1943855768}
+  - component: {fileID: 1943855769}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -31141,6 +31142,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minDistance: 90
   _yPosition: 30
+--- !u!114 &1943855769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943855759}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a766f3445781d888ba3143f220fa83b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fallingTrigger: {fileID: 11400000, guid: 47272ae9b09323cea922f65deb4b399d, type: 2}
+  _landedTrigger: {fileID: 11400000, guid: c04375af90a760521990be7b1667ef26, type: 2}
+  _terrainTag: Terrain
 --- !u!43 &1961664568
 Mesh:
   m_ObjectHideFlags: 0

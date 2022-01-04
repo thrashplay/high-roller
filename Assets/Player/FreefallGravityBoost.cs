@@ -6,32 +6,23 @@ public class FreefallGravityBoost : MonoBehaviour
 {
     private Rigidbody _body;
 
-    // flag indicating if we are on the ground or not
-    private bool _onGround = true;
+    private FallDetector _fallDetector;
 
     [SerializeField]
     private PlayerConfigModule _playerConfig;
 
-    void Start()
+    void Awake()
     {
         _body = GetComponent<Rigidbody>();
+        _fallDetector = GetComponent<FallDetector>();
     }
 
     void FixedUpdate()
     {
-        if (!_onGround && _playerConfig.FreefallGravityMultiplier != 1)
+        if (_fallDetector.Falling && _playerConfig.FreefallGravityMultiplier != 1)
         {
             // subtract 1, since the physics engine applies 1x normal gravityh for us
             _body.AddForce(Physics.gravity * (_playerConfig.FreefallGravityMultiplier - 1), ForceMode.Acceleration); 
-        }
-        _onGround = false;
-    }
-
-    private void OnCollisionStay(Collision other) 
-    {
-        if (other.gameObject.CompareTag("Terrain"))
-        {
-            _onGround = true;
         }
     }
 }
