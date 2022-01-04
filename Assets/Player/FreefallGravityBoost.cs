@@ -11,7 +11,7 @@ public class FreefallGravityBoost : MonoBehaviour
     [SerializeField]
     private PlayerConfigModule _playerConfig;
 
-    void Awake()
+    void Start()
     {
         _body = GetComponent<Rigidbody>();
         _fallDetector = GetComponent<FallDetector>();
