@@ -4,9 +4,22 @@ using UnityEngine;
 
 public class RespawnController : MonoBehaviour
 {
+    // number of second remaining before the checkpoint is confirmed
+    private float _checkpointDelay = 0;
+
+    // number of seconds before snapshotting checkpoints
+    [SerializeField]
+    private float _checkpointInterval = 2;
+
+    // next possible spawnpoint, which will be confirmed if the player survives long enough
+    private Vector3 _checkpointPosition;
+
     // initial position for newly spawned players
     [SerializeField]
     private Vector3 _initialPosition;
+
+    // the most recently spawned player object, used to track movement for respawn checkpoints
+    private GameObject _player;
 
     // the prefab representing the player object
     [SerializeField]
@@ -20,6 +33,23 @@ public class RespawnController : MonoBehaviour
     {
         _respawnTrigger.AddListener(OnRespawn);
         OnRespawn();
+
+        _checkpointPosition = _initialPosition;
+        _checkpointDelay = 0;
+    }
+
+    private void FixedUpdate() {
+        if (!_player) {
+            return;
+        }
+
+        _checkpointDelay += Time.fixedDeltaTime;
+
+        if (_checkpointDelay >= _checkpointInterval) {
+            _initialPosition = _checkpointPosition;
+            _checkpointDelay = 0;
+            _checkpointPosition = _player.transform.position;
+        }
     }
 
     private void OnDestroy() {
@@ -28,6 +58,6 @@ public class RespawnController : MonoBehaviour
 
     private void OnRespawn()
     {
-        Instantiate(_playerPrefab, _initialPosition, Quaternion.identity);
+        _player = Instantiate(_playerPrefab, _initialPosition, Quaternion.identity);
     }
 }

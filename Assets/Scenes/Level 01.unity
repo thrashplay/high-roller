@@ -2786,6 +2786,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e2eae92bf2e656fe9151858b459b36b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _checkpointInterval: 0.7
   _initialPosition: {x: -0.5, y: 0.5, z: -0.5}
   _playerPrefab: {fileID: 8397388066573923010, guid: 75306ec3fed329571af80fa840982f83, type: 3}
   _respawnTrigger: {fileID: 11400000, guid: 243c905a14aac15c6b63898ecbd15937, type: 2}
