@@ -9,14 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0caaf4102a84ca6ea8120ab57ce9993f, type: 3}
-  m_Name: PlayerConfig
+  m_Script: {fileID: 11500000, guid: abef545bf624e55d98a97fc712bd43fd, type: 3}
+  m_Name: PlayerFallingTrigger
   m_EditorClassIdentifier: 
-  _continuousForce: 15
-  _endlessFallHeight: 20
-  _freefallGravityMultipler: 6
-  _reverseBoost: 1
-  _safeFallDistance: 2
-  _stationaryBoost: 0
-  _stationaryThreshold: 1
-  _turnBoost: 0.5

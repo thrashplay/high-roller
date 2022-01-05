@@ -53,6 +53,9 @@ labels:
   - name: size:8
     color: ffffff
   # feature area
+  - name: Core Mechanics
+    color: 28C66A
+    description: Movement, death, respawning, etc.
   - name: Enemies
     color: 28C66A
     description: Creating enemy behavior or assets.
