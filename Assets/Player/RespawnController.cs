@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class RespawnController : MonoBehaviour
 {
-    // number of second remaining before the checkpoint is confirmed
-    private float _checkpointDelay = 0;
+    private FallDetector _fallDetector;
 
-    // number of seconds before snapshotting checkpoints
-    [SerializeField]
-    private float _checkpointInterval = 2;
-
-    // next possible spawnpoint, which will be confirmed if the player survives long enough
-    private Vector3 _checkpointPosition;
+    private readonly Queue<Vector3> _positions = new Queue<Vector3>();
 
     // initial position for newly spawned players
     [SerializeField]
@@ -33,23 +27,24 @@ public class RespawnController : MonoBehaviour
     {
         _respawnTrigger.AddListener(OnRespawn);
         OnRespawn();
-
-        _checkpointPosition = _initialPosition;
-        _checkpointDelay = 0;
     }
 
     private void FixedUpdate() {
-        if (!_player) {
+        if (!_player || !_fallDetector) {
             return;
         }
 
-        _checkpointDelay += Time.fixedDeltaTime;
-
-        if (_checkpointDelay >= _checkpointInterval) {
-            _initialPosition = _checkpointPosition;
-            _checkpointDelay = 0;
-            _checkpointPosition = _player.transform.position;
+        if (IsSafeRespawnPoint(_player.transform.position)) {
+            _positions.Enqueue(_player.transform.position);
         }
+
+        if (_positions.Count > 10) {
+            _initialPosition = _positions.Dequeue();
+        }
+    }
+
+    private bool IsSafeRespawnPoint(Vector3 position) {
+        return !_fallDetector.Falling;
     }
 
     private void OnDestroy() {
@@ -59,5 +54,7 @@ public class RespawnController : MonoBehaviour
     private void OnRespawn()
     {
         _player = Instantiate(_playerPrefab, _initialPosition, Quaternion.identity);
+        _positions.Clear();
+        _fallDetector = _player.GetComponent<FallDetector>();
     }
 }

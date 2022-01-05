@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
   _continuousForce: 15
-  _endlessFallHeight: 9
+  _endlessFallHeight: 20
   _freefallGravityMultipler: 6
   _reverseBoost: 1
   _safeFallDistance: 2
