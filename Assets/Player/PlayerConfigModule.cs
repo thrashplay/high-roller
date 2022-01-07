@@ -17,6 +17,18 @@ public class PlayerConfigModule : ScriptableObject
     [SerializeField]
     private float _freefallGravityMultipler = 2;
 
+    [SerializeField]
+    // whether to render debug objects for ground detection
+    private bool _groundDetectionDebug = false;
+
+    [SerializeField]
+    // max distance to cast ground detection spheres (must be > 0)
+    private float _groundDetectionDistance = 0.1F;
+
+    [SerializeField]
+    // the radius of the sphers to cast for ground detection
+    private float _groundDetectionRadius = 1;
+
     // extra force applied when the player reverses either the north/south or east/west axis
     [SerializeField]
     private float _reverseBoost = 0;
@@ -48,6 +60,18 @@ public class PlayerConfigModule : ScriptableObject
 
     public float FreefallGravityMultiplier {
         get { return _freefallGravityMultipler; }
+    }
+
+    public bool GroundDetectionDebug {
+        get { return _groundDetectionDebug; }
+    }
+
+    public float GroundDetectionDistance {
+        get { return _groundDetectionDistance; }
+    }
+
+    public float GroundDetectionRadius {
+        get { return _groundDetectionRadius; }
     }
 
     public float ReverseBoost {

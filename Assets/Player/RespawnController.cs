@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RespawnController : MonoBehaviour
 {
-    private FallDetector _fallDetector;
+    private IGroundDetector _groundDetector;
 
     private readonly Queue<Vector3> _positions = new Queue<Vector3>();
 
@@ -30,7 +30,7 @@ public class RespawnController : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        if (!_player || !_fallDetector) {
+        if (!_player) {
             return;
         }
 
@@ -44,7 +44,7 @@ public class RespawnController : MonoBehaviour
     }
 
     private bool IsSafeRespawnPoint(Vector3 position) {
-        return !_fallDetector.Falling;
+        return _groundDetector.IsOnGround;
     }
 
     private void OnDestroy() {
@@ -55,6 +55,6 @@ public class RespawnController : MonoBehaviour
     {
         _player = Instantiate(_playerPrefab, _initialPosition, Quaternion.identity);
         _positions.Clear();
-        _fallDetector = _player.GetComponent<FallDetector>();
+        _groundDetector = _player.GetComponent<IGroundDetector>();
     }
 }

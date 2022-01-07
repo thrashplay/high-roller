@@ -6,7 +6,7 @@ public class FallingDeathController : MonoBehaviour
 {
     private Rigidbody _body;
 
-    private FallDetector _fallDetector;
+    private IGroundDetector _groundDetector;
 
     // height of the player when they started falling
     private float _initialHeight;
@@ -28,14 +28,14 @@ public class FallingDeathController : MonoBehaviour
 
     void Start() {
         _body = GetComponent<Rigidbody>();
-        _fallDetector = GetComponent<FallDetector>();
+        _groundDetector = GetComponent<IGroundDetector>();
 
         _fallingTrigger.AddListener(OnFalling);
         _landingTrigger.AddListener(OnLanding);    
     }
 
     private void FixedUpdate() {
-        if (_fallDetector.Falling) {
+        if (!_groundDetector.IsOnGround) {
             var fallDistance = _initialHeight - _body.position.y;
             if (fallDistance >= _playerConfig.EndlessFallHeight) {
                 Respawn();
