@@ -6,7 +6,7 @@ public class FreefallGravityBoost : MonoBehaviour
 {
     private Rigidbody _body;
 
-    private FallDetector _fallDetector;
+    private IGroundDetector _groundDetector;
 
     [SerializeField]
     private PlayerConfigModule _playerConfig;
@@ -14,12 +14,12 @@ public class FreefallGravityBoost : MonoBehaviour
     void Start()
     {
         _body = GetComponent<Rigidbody>();
-        _fallDetector = GetComponent<FallDetector>();
+        _groundDetector = GetComponent<IGroundDetector>();
     }
 
     void FixedUpdate()
     {
-        if (_fallDetector.Falling && _playerConfig.FreefallGravityMultiplier != 1)
+        if (!_groundDetector.IsOnGround && _playerConfig.FreefallGravityMultiplier != 1)
         {
             // subtract 1, since the physics engine applies 1x normal gravityh for us
             _body.AddForce(Physics.gravity * (_playerConfig.FreefallGravityMultiplier - 1), ForceMode.Acceleration); 

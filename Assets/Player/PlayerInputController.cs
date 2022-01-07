@@ -32,6 +32,32 @@ public class PlayerInputController : MonoBehaviour
         _direction = GetRequestedDirection();
     }
 
+    // retrieves the normalized vector for the direction corresponding to the user's input
+    // if there is no user input, a zero vector is returned instead
+    public Vector3 GetInputVector()
+    {
+        var direction = GetRequestedDirection();
+        if (direction == Direction.None) {
+            return Vector3.zero;
+        }
+
+        var vector = direction switch {
+            Direction.East => new Vector3(1, 0, 0),
+            Direction.Northeast => new Vector3(1, 0, 1),
+            Direction.North => new Vector3(0, 0, 1),
+            Direction.Northwest => new Vector3(-1, 0, 1),
+            Direction.West => new Vector3(-1, 0, 0),
+            Direction.Southwest => new Vector3(-1, 0, -1),
+            Direction.South => new Vector3(0, 0, -1),
+            Direction.Southeast => new Vector3(1, 0, -1),
+            _ => Vector3.zero,
+        };
+
+        var mapRotation = Camera.main.transform.eulerAngles.y;
+        var result = mapRotation == 0 ? vector : Quaternion.AngleAxis(mapRotation, Vector3.up) * vector;
+        return result.normalized;
+    }
+
     public Direction GetRequestedDirection()
     {
         if (IsPressed(DirectionKey.Right))
