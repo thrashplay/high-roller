@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0caaf4102a84ca6ea8120ab57ce9993f, type: 3}
   m_Name: PlayerConfig
   m_EditorClassIdentifier: 
-  _continuousForce: 15
+  _continuousForce: 25
   _endlessFallHeight: 20
-  _freefallGravityMultipler: 6
+  _freefallGravityMultipler: 9
   _reverseBoost: 1
-  _safeFallDistance: 2
+  _safeFallDistance: 2.2
   _stationaryBoost: 0
   _stationaryThreshold: 1
-  _turnBoost: 0.5
+  _turnBoost: 0
