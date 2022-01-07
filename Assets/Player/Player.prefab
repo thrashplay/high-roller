@@ -13,12 +13,12 @@ GameObject:
   - component: {fileID: 8397388066573923036}
   - component: {fileID: 8397388066573923037}
   - component: {fileID: 8397388066573923033}
-  - component: {fileID: 8397388066573923032}
   - component: {fileID: 8397388066573923035}
   - component: {fileID: 8397388066573923034}
   - component: {fileID: 8397388066573923029}
   - component: {fileID: 8397388066573923028}
   - component: {fileID: 8397388066573923031}
+  - component: {fileID: 6760015390766291590}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -111,26 +111,13 @@ Rigidbody:
   m_GameObject: {fileID: 8397388066573923010}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 1.8
-  m_AngularDrag: 1
+  m_Drag: 0.25
+  m_AngularDrag: 0.3
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &8397388066573923032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8397388066573923010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f2c10e9909b21617b40495e4f5194dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _playerConfig: {fileID: 11400000, guid: 89d3302f0e70429f5bd1b8ba3bc29d17, type: 2}
 --- !u!114 &8397388066573923035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,4 +187,17 @@ MonoBehaviour:
   _respawnTrigger: {fileID: 11400000, guid: 243c905a14aac15c6b63898ecbd15937, type: 2}
   _fallingTrigger: {fileID: 11400000, guid: 47272ae9b09323cea922f65deb4b399d, type: 2}
   _landingTrigger: {fileID: 11400000, guid: c04375af90a760521990be7b1667ef26, type: 2}
+  _playerConfig: {fileID: 11400000, guid: 89d3302f0e70429f5bd1b8ba3bc29d17, type: 2}
+--- !u!114 &6760015390766291590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8397388066573923010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f2c10e9909b21617b40495e4f5194dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _playerConfig: {fileID: 11400000, guid: 89d3302f0e70429f5bd1b8ba3bc29d17, type: 2}

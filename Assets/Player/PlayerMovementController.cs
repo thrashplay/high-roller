@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovementController : MonoBehaviour
 {
     private Rigidbody _body;
 
@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (currentDirection != Direction.None) {
             var position = new Vector3(0, 1, 0);
-            var vector = GetMovementVector(currentDirection);
+            var vector = _inputController.GetInputVector();
 
             // we apply only one of stationary boost, reverse boost or turn boost, favoring them in that order
             if (_playerConfig.StationaryBoost > 0 && !IsMoving()) {
@@ -43,24 +43,5 @@ public class PlayerMovement : MonoBehaviour
     private bool IsMoving()
     {
         return _body.velocity.magnitude >= _playerConfig.StationaryThreshold;
-    }
-
-    // calculate the movement vector for the given direction
-    private Vector3 GetMovementVector(Direction direction)
-    {
-        var vector = direction switch {
-            Direction.East => new Vector3(1, 0, 0),
-            Direction.Northeast => new Vector3(1, 0, 1),
-            Direction.North => new Vector3(0, 0, 1),
-            Direction.Northwest => new Vector3(-1, 0, 1),
-            Direction.West => new Vector3(-1, 0, 0),
-            Direction.Southwest => new Vector3(-1, 0, -1),
-            Direction.South => new Vector3(0, 0, -1),
-            Direction.Southeast => new Vector3(1, 0, -1),
-            _ => Vector3.zero,
-        };
-
-        var mapRotation = Camera.main.transform.eulerAngles.y;
-        return mapRotation == 0 ? vector : Quaternion.AngleAxis(mapRotation, Vector3.up) * vector;
     }
 }
