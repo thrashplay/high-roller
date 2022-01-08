@@ -22,7 +22,7 @@ public class VictoryController : MonoBehaviour
                 var body = player.GetComponent<Rigidbody>();
 
                 if (body.velocity.magnitude < 0.02) {
-                    SceneManager.LoadScene(_victoryScene);
+                    SceneManager.LoadSceneAsync(_victoryScene, LoadSceneMode.Single);
                 }
             }
         }
