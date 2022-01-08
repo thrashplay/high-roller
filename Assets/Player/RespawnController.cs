@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class RespawnController : MonoBehaviour
 {
-    private IGroundDetector _groundDetector;
-
     private readonly Queue<Vector3> _positions = new Queue<Vector3>();
 
     // initial position for newly spawned players
@@ -19,14 +17,17 @@ public class RespawnController : MonoBehaviour
     [SerializeField]
     private GameObject _playerPrefab;
 
+    // boolean indicating if the player's current state indicates a safe respawn point
+    private bool _safeSpawnPoint = true;
+
     // trigger emitted when the player should respawn
     [SerializeField]
-    private Trigger _respawnTrigger;
+    private PlayerStateMachine _state;
 
     void Start()
     {
-        _respawnTrigger.AddListener(OnRespawn);
-        OnRespawn();
+        _state.AddStateChangeListener(OnStateChange);
+        _state.Respawn();
     }
 
     private void FixedUpdate() {
@@ -34,7 +35,7 @@ public class RespawnController : MonoBehaviour
             return;
         }
 
-        if (IsSafeRespawnPoint(_player.transform.position)) {
+        if (_safeSpawnPoint) {
             _positions.Enqueue(_player.transform.position);
         }
 
@@ -43,18 +44,44 @@ public class RespawnController : MonoBehaviour
         }
     }
 
-    private bool IsSafeRespawnPoint(Vector3 position) {
-        return _groundDetector.IsOnGround;
-    }
-
     private void OnDestroy() {
-        _respawnTrigger.RemoveListener(OnRespawn);
+        _state.RemoveStateChangeListener(OnStateChange);
     }
 
-    private void OnRespawn()
+    private void OnStateChange(PlayerState state)
     {
+        switch (state) {
+            case PlayerState.Respawning:
+                OnRespawn();
+                break;
+
+            // unsafe states for respawn
+            case PlayerState.Falling:
+            case PlayerState.WinningWhileFalling:
+                _safeSpawnPoint = false;
+                break;
+
+            // unsafe states for respawn; also, die
+            case PlayerState.FallingToDeath:
+            case PlayerState.Shattering:
+                _safeSpawnPoint = false;
+
+                // TODO: have a separate shattering or falling to death object
+                _state.Respawn();
+                break;
+
+            default:
+                _safeSpawnPoint = true;
+                break;
+        }
+    }
+
+    private void OnRespawn() {
+        Destroy(_player);
         _player = Instantiate(_playerPrefab, _initialPosition, Quaternion.identity);
         _positions.Clear();
-        _groundDetector = _player.GetComponent<IGroundDetector>();
+        
+        // TODO: animate the respawn; respawning is currently instantaneous
+        _state.RespawnComplete();
     }
 }

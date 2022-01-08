@@ -17,8 +17,9 @@ GameObject:
   - component: {fileID: 8397388066573923034}
   - component: {fileID: 8397388066573923029}
   - component: {fileID: 8449861844612177921}
-  - component: {fileID: 8397388066573923031}
   - component: {fileID: 6760015390766291590}
+  - component: {fileID: 3422977215494985939}
+  - component: {fileID: 3004463141715990801}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -171,25 +172,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fallingTrigger: {fileID: 11400000, guid: 47272ae9b09323cea922f65deb4b399d, type: 2}
   _landedTrigger: {fileID: 11400000, guid: c04375af90a760521990be7b1667ef26, type: 2}
-  _maxDistance: 0.2
   _playerConfig: {fileID: 11400000, guid: 89d3302f0e70429f5bd1b8ba3bc29d17, type: 2}
   _terrainTag: Terrain
---- !u!114 &8397388066573923031
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8397388066573923010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cad2fd888b65f82f99a92d548a76803c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _respawnTrigger: {fileID: 11400000, guid: 243c905a14aac15c6b63898ecbd15937, type: 2}
-  _fallingTrigger: {fileID: 11400000, guid: 47272ae9b09323cea922f65deb4b399d, type: 2}
-  _landingTrigger: {fileID: 11400000, guid: c04375af90a760521990be7b1667ef26, type: 2}
-  _playerConfig: {fileID: 11400000, guid: 89d3302f0e70429f5bd1b8ba3bc29d17, type: 2}
 --- !u!114 &6760015390766291590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,3 +187,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerConfig: {fileID: 11400000, guid: 89d3302f0e70429f5bd1b8ba3bc29d17, type: 2}
+  _playerState: {fileID: 11400000, guid: 2237b39598be763a6a7395e79baf60dc, type: 2}
+--- !u!114 &3422977215494985939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8397388066573923010}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0581b3defc338b89b80eb1dcbfcf1ddc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _playerConfig: {fileID: 11400000, guid: 89d3302f0e70429f5bd1b8ba3bc29d17, type: 2}
+--- !u!114 &3004463141715990801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8397388066573923010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca0b11ae7f30c3cda3d1ca8983e1d75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fallingTrigger: {fileID: 11400000, guid: 47272ae9b09323cea922f65deb4b399d, type: 2}
+  _landingTrigger: {fileID: 11400000, guid: c04375af90a760521990be7b1667ef26, type: 2}
+  _playerConfig: {fileID: 11400000, guid: 89d3302f0e70429f5bd1b8ba3bc29d17, type: 2}
+  _state: {fileID: 11400000, guid: 2237b39598be763a6a7395e79baf60dc, type: 2}
