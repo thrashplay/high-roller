@@ -1,9 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class VictoryController : MonoBehaviour
 {
+    // the scene to load if the player finishes the course
+    [SerializeField]
+    private string _victoryScene;
+
     [SerializeField]
     private PlayerStateMachine _playerState;
 
@@ -17,8 +22,7 @@ public class VictoryController : MonoBehaviour
                 var body = player.GetComponent<Rigidbody>();
 
                 if (body.velocity.magnitude < 0.02) {
-                    Debug.Log("You win!");
-                    GameObject.Destroy(player);
+                    SceneManager.LoadScene(_victoryScene);
                 }
             }
         }
