@@ -40,7 +40,6 @@ public class GroundDetector_SphereCast : MonoBehaviour, IGroundDetector
         }
     }
 
-
     private bool IsAboveTerrain() {
         var hits = Physics.SphereCastAll(
             transform.position,
