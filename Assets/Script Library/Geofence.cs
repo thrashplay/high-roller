@@ -21,12 +21,13 @@ public class Geofence : MonoBehaviour
     private string tagToWatch;
 
     // clears the inZone value, if (for example) the player dies in a zone
-    public void Reset() {
+    public void ClearPresence() {
         inZone.Value = false;
     }
 
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.CompareTag(tagToWatch)) {
+            Debug.Log("enter;");
             if (enterTrigger != null) {
                 enterTrigger.Emit();
             }

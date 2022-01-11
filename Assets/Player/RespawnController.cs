@@ -83,7 +83,6 @@ public class RespawnController : MonoBehaviour
         Destroy(_player);
         _player = Instantiate(_playerPrefab, _initialPosition, Quaternion.identity);
         _positions.Clear();
-        inRespawnZone.Value = false;
         
         // TODO: animate the respawn; respawning is currently instantaneous
         _state.RespawnComplete();

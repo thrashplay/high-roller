@@ -58,6 +58,10 @@ public class PlayerStateController : MonoBehaviour
     // if the player landed at 'currentHeight' from a height of 'initialHeight', return their new state
     private bool IsSafeFall(float initialHeight, float currentHeight) {
         var fallDistance = initialHeight - currentHeight;
-        return fallDistance <= _playerConfig.SafeFallDistance;
+        var wasShort = fallDistance <= _playerConfig.SafeFallDistance;
+
+        Debug.Log("Te: " + _state.CurrentTerrain + ", sf: " + fallDistance + ", " + wasShort + ", " + _state.CurrentTerrain.SafeToFall);
+
+        return _state.CurrentTerrain.SafeToFall || wasShort;
     }
 }

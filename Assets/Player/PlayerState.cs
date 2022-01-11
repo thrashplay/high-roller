@@ -23,6 +23,18 @@ public class PlayerState : ScriptableObject
 
     private readonly List<StateChangeCallback> _stateChangeCallbacks =  new List<StateChangeCallback>();
 
+    [SerializeField]
+    private BooleanValue inRespawnZone;
+
+    [SerializeField]
+    private BooleanValue isInSnow;
+
+    [SerializeField]
+    private TerrainType defaultTerrain;
+
+    [SerializeField]
+    private TerrainType snow;
+
     public void AddStateChangeListener(StateChangeCallback listener)
     {
         _stateChangeCallbacks.Add(listener);
@@ -50,6 +62,13 @@ public class PlayerState : ScriptableObject
         }
     }
 
+    public TerrainType CurrentTerrain {
+
+        get {
+            return isInSnow.Value ? snow : defaultTerrain;
+        }
+    }
+
     // return true if the state indicates the player has reached the goal
     public bool Winning {
         get {
@@ -58,6 +77,9 @@ public class PlayerState : ScriptableObject
     }
 
     public bool Respawn() {
+        inRespawnZone.Value = false;
+        isInSnow.Value = false;
+
         State = PlayerStateType.Respawning;
         return true;
     }

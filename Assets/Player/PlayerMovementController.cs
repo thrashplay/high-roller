@@ -44,6 +44,12 @@ public class PlayerMovementController : MonoBehaviour
             }
         }
 
+        var terrain = _playerState.CurrentTerrain;
+        if (terrain.VelocityMultiplier != 1) {
+            _body.angularVelocity *= terrain.VelocityMultiplier;
+            _body.velocity *= terrain.VelocityMultiplier;
+        }
+
         if (_playerState.Winning && !_playerState.Falling) {
             _body.angularVelocity *= 0.95F;
             _body.velocity *= 0.95F;
