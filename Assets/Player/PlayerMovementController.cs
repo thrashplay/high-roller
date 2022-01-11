@@ -14,7 +14,7 @@ public class PlayerMovementController : MonoBehaviour
 
     [SerializeField]
     // player state, used to determine if input is allowed or not
-    private PlayerStateMachine _playerState;
+    private PlayerState _playerState;
 
     void Start()
     {
@@ -52,8 +52,8 @@ public class PlayerMovementController : MonoBehaviour
 
     private bool IsInputAllowed() {
         return _playerState.State switch {
-            PlayerState.Winning => false,
-            PlayerState.WinningWhileFalling => false,
+            PlayerStateType.Winning => false,
+            PlayerStateType.WinningWhileFalling => false,
             _ => true
         };
     }

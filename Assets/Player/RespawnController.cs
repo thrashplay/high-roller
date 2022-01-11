@@ -10,6 +10,9 @@ public class RespawnController : MonoBehaviour
     [SerializeField]
     private Vector3 _initialPosition;
 
+    [SerializeField]
+    private BooleanValue inRespawnZone;
+
     // the most recently spawned player object, used to track movement for respawn checkpoints
     private GameObject _player;
 
@@ -18,11 +21,11 @@ public class RespawnController : MonoBehaviour
     private GameObject _playerPrefab;
 
     // boolean indicating if the player's current state indicates a safe respawn point
-    private bool _safeSpawnPoint = true;
+    private bool _safeSpawnState = true;
 
     // trigger emitted when the player should respawn
     [SerializeField]
-    private PlayerStateMachine _state;
+    private PlayerState _state;
 
     void Start()
     {
@@ -35,7 +38,7 @@ public class RespawnController : MonoBehaviour
             return;
         }
 
-        if (_safeSpawnPoint) {
+        if (_safeSpawnState && inRespawnZone.Value) {
             _positions.Enqueue(_player.transform.position);
         }
 
@@ -48,30 +51,30 @@ public class RespawnController : MonoBehaviour
         _state.RemoveStateChangeListener(OnStateChange);
     }
 
-    private void OnStateChange(PlayerState state)
+    private void OnStateChange(PlayerStateType state)
     {
         switch (state) {
-            case PlayerState.Respawning:
+            case PlayerStateType.Respawning:
                 OnRespawn();
                 break;
 
             // unsafe states for respawn
-            case PlayerState.Falling:
-            case PlayerState.WinningWhileFalling:
-                _safeSpawnPoint = false;
+            case PlayerStateType.Falling:
+            case PlayerStateType.WinningWhileFalling:
+                _safeSpawnState = false;
                 break;
 
             // unsafe states for respawn; also, die
-            case PlayerState.FallingToDeath:
-            case PlayerState.Shattering:
-                _safeSpawnPoint = false;
+            case PlayerStateType.FallingToDeath:
+            case PlayerStateType.Shattering:
+                _safeSpawnState = false;
 
                 // TODO: have a separate shattering or falling to death object
                 _state.Respawn();
                 break;
 
             default:
-                _safeSpawnPoint = true;
+                _safeSpawnState = true;
                 break;
         }
     }
@@ -80,6 +83,7 @@ public class RespawnController : MonoBehaviour
         Destroy(_player);
         _player = Instantiate(_playerPrefab, _initialPosition, Quaternion.identity);
         _positions.Clear();
+        inRespawnZone.Value = false;
         
         // TODO: animate the respawn; respawning is currently instantaneous
         _state.RespawnComplete();

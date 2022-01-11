@@ -10,7 +10,7 @@ public class VictoryController : MonoBehaviour
     private string _victoryScene;
 
     [SerializeField]
-    private PlayerStateMachine _playerState;
+    private PlayerState _playerState;
 
     // Update is called once per frame
     void FixedUpdate()

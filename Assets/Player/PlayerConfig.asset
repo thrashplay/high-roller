@@ -16,7 +16,7 @@ MonoBehaviour:
   _endlessFallHeight: 20
   _freefallGravityMultipler: 9
   _groundDetectionDebug: 0
-  _groundDetectionDistance: 0.15
+  _groundDetectionDistance: 0.25
   _groundDetectionRadius: 0.45
   _reverseBoost: 0
   _safeFallDistance: 2.2
