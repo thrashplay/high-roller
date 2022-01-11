@@ -17221,7 +17221,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04b14893dd895478d9f701fe3444355d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _victoryScene: Test Level
+  _victoryScene: Ground Effects Test Level
   _playerState: {fileID: 11400000, guid: 2237b39598be763a6a7395e79baf60dc, type: 2}
 --- !u!4 &1812472222
 Transform:
