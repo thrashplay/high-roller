@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 [System.Serializable]
 public class Waypoint {
@@ -12,16 +11,10 @@ public class Waypoint {
 
 public class MoveToWaypoints : MonoBehaviour
 {
-    private readonly static float ARRIVAL_DELTA = 0.001F;
-
     [SerializeField]
     private Waypoint[] waypoints = {};
 
     private Vector3 _initialPosition;
-
-    private Vector3 _movement = Vector3.zero;
-
-    private int _waypointIndex;
 
     private Rigidbody _rigidbody;
 
@@ -29,47 +22,37 @@ public class MoveToWaypoints : MonoBehaviour
         get { return waypoints; }
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         _initialPosition = transform.position;
         _rigidbody = GetComponent<Rigidbody>();
-        SetNextWaypoint(0);
+
+        if (waypoints.Length > 0) {
+            StartCoroutine(LerpMove(0));
+        }
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+
+    IEnumerator LerpMove(int index)
     {
-        if (waypoints.Length < 1) {
-            return;
+        Vector3 startPosition = _rigidbody.position;
+        float timeElapsed = 0;
+        Waypoint waypoint = waypoints[index];
+
+        while (timeElapsed < waypoint.MoveTime)
+        {
+            var newPosition = Vector3.Lerp(startPosition, waypoint.Target + _initialPosition, timeElapsed / waypoint.MoveTime);
+            _rigidbody.MovePosition(newPosition);
+            timeElapsed += Time.deltaTime;
+            yield return new WaitForFixedUpdate();
         }
 
-        if (AtWaypoint()) {
-            SetNextWaypoint(_waypointIndex + 1);
+        transform.position = waypoint.Target + _initialPosition;
+
+        if (waypoint.WaitTime > 0) {
+            yield return new WaitForSeconds(waypoint.WaitTime);
         }
-
-        _rigidbody.MovePosition(_rigidbody.position + _movement * Time.fixedDeltaTime);
-    }
-
-    private bool AtWaypoint() {
-        var waypoint = waypoints[_waypointIndex];
-        var targetGlobalPosition = waypoint.Target + _initialPosition;
-        if (Mathf.Abs((targetGlobalPosition - transform.position).magnitude) < ARRIVAL_DELTA) {
-            transform.position = targetGlobalPosition;
-            return true;
-        }
-
-        return false;
-    }
-
-    private void SetNextWaypoint(int requestedIndex) {
-        if (waypoints.Length < 1) {
-            return;
-        }
-
-        _waypointIndex = requestedIndex % waypoints.Length;
-        var waypoint = waypoints[_waypointIndex];
-        var targetGlobalPosition = waypoint.Target + _initialPosition;
-        _movement = (targetGlobalPosition - transform.position) / waypoint.MoveTime;
+    
+        yield return StartCoroutine(LerpMove((index + 1) % waypoints.Length));
     }
 }
