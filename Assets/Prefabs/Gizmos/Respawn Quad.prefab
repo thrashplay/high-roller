@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 733995621202066197}
   - component: {fileID: -6001008594647630935}
   m_Layer: 6
-  m_Name: Respawn Zone
+  m_Name: Respawn Quad
   m_TagString: Respawn Zone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
