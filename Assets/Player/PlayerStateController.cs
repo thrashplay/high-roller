@@ -19,7 +19,7 @@ public class PlayerStateController : MonoBehaviour
     private PlayerConfigModule _playerConfig;
 
     [SerializeField]
-    private PlayerStateMachine _state;
+    private PlayerState _state;
 
     private void Start() {
         _fallingTrigger.AddListener(Fall);
@@ -41,7 +41,7 @@ public class PlayerStateController : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        if (_state.State == PlayerState.Falling || _state.State == PlayerState.WinningWhileFalling) {
+        if (_state.State == PlayerStateType.Falling || _state.State == PlayerStateType.WinningWhileFalling) {
             var fallDistance = _initialHeight - transform.position.y;
             if (fallDistance >= _playerConfig.EndlessFallHeight) {
                 _state.FellTooFar();

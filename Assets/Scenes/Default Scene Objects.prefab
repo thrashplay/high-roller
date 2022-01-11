@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _initialPosition: {x: -0.5, y: 0.5, z: -0.5}
+  inRespawnZone: {fileID: 11400000, guid: bec8b1aba6aba8e96aa0283a03483884, type: 2}
   _playerPrefab: {fileID: 8397388066573923010, guid: 75306ec3fed329571af80fa840982f83, type: 3}
   _state: {fileID: 11400000, guid: 2237b39598be763a6a7395e79baf60dc, type: 2}
 --- !u!1 &3133957991666118104

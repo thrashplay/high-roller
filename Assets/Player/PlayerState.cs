@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum PlayerState {
+public enum PlayerStateType {
     Alive,
     Dizzy,
     Falling,
@@ -14,12 +14,12 @@ public enum PlayerState {
     WinningWhileFalling
 }
 
-public delegate void StateChangeCallback(PlayerState state);
+public delegate void StateChangeCallback(PlayerStateType state);
 
 [CreateAssetMenu(fileName = "PlayerState", menuName = "ScriptableObjects/PlayerState", order = 1)]
-public class PlayerStateMachine : ScriptableObject
+public class PlayerState : ScriptableObject
 {
-    private PlayerState _state = PlayerState.NeverSpawned;
+    private PlayerStateType _state = PlayerStateType.NeverSpawned;
 
     private readonly List<StateChangeCallback> _stateChangeCallbacks =  new List<StateChangeCallback>();
 
@@ -33,7 +33,7 @@ public class PlayerStateMachine : ScriptableObject
         _stateChangeCallbacks.Remove(listener);
     }
 
-    public PlayerState State {
+    public PlayerStateType State {
         get { return _state; }
         private set { 
             if (State != value) {
@@ -46,26 +46,26 @@ public class PlayerStateMachine : ScriptableObject
     // return true if the state indicates the player is in freefall
     public bool Falling {
         get {
-            return _state == PlayerState.Falling || _state == PlayerState.WinningWhileFalling;
+            return _state == PlayerStateType.Falling || _state == PlayerStateType.WinningWhileFalling;
         }
     }
 
     // return true if the state indicates the player has reached the goal
     public bool Winning {
         get {
-            return _state == PlayerState.Winning || _state == PlayerState.WinningWhileFalling;
+            return _state == PlayerStateType.Winning || _state == PlayerStateType.WinningWhileFalling;
         }
     }
 
     public bool Respawn() {
-        State = PlayerState.Respawning;
+        State = PlayerStateType.Respawning;
         return true;
     }
 
     public bool RespawnComplete() {
         switch (State) {
-            case PlayerState.Respawning:
-                State = PlayerState.Alive;
+            case PlayerStateType.Respawning:
+                State = PlayerStateType.Alive;
                 return true;
         }
 
@@ -74,13 +74,13 @@ public class PlayerStateMachine : ScriptableObject
 
     public bool Fall() {
         switch (State) {
-            case PlayerState.Alive:
-            case PlayerState.Dizzy:
-                State = PlayerState.Falling;
+            case PlayerStateType.Alive:
+            case PlayerStateType.Dizzy:
+                State = PlayerStateType.Falling;
                 return true;
 
-            case PlayerState.Winning:
-                State = PlayerState.WinningWhileFalling;
+            case PlayerStateType.Winning:
+                State = PlayerStateType.WinningWhileFalling;
                 return true;
         }
 
@@ -89,7 +89,7 @@ public class PlayerStateMachine : ScriptableObject
 
     public bool FellTooFar() {
         if (Falling) {
-            State = PlayerState.FallingToDeath;
+            State = PlayerStateType.FallingToDeath;
             return true;
         }
 
@@ -98,14 +98,14 @@ public class PlayerStateMachine : ScriptableObject
 
     public bool GoalReached() {
         switch (State) {
-            case PlayerState.Alive:
-            case PlayerState.Dizzy:
-            case PlayerState.Respawning:
-                State = PlayerState.Winning;
+            case PlayerStateType.Alive:
+            case PlayerStateType.Dizzy:
+            case PlayerStateType.Respawning:
+                State = PlayerStateType.Winning;
                 return true;
 
-            case PlayerState.Falling:
-                State = PlayerState.WinningWhileFalling;
+            case PlayerStateType.Falling:
+                State = PlayerStateType.WinningWhileFalling;
                 return true;
         }
 
@@ -114,19 +114,19 @@ public class PlayerStateMachine : ScriptableObject
 
     public bool Land(bool shatter = false) {
         switch (State) {
-            case PlayerState.Falling:
-                State = shatter ? PlayerState.Shattering : PlayerState.Alive;
+            case PlayerStateType.Falling:
+                State = shatter ? PlayerStateType.Shattering : PlayerStateType.Alive;
                 return true;
 
-            case PlayerState.WinningWhileFalling:
-                State = shatter ? PlayerState.Shattering : PlayerState.Winning;
+            case PlayerStateType.WinningWhileFalling:
+                State = shatter ? PlayerStateType.Shattering : PlayerStateType.Winning;
                 return true;
         }
 
         return false;
     }
 
-    private void EmitStateChange(PlayerState state) {
+    private void EmitStateChange(PlayerStateType state) {
         _stateChangeCallbacks.ForEach((callback) => callback(state));
     }
 }
