@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class GroundDetector_SphereCast : MonoBehaviour, IGroundDetector
+public class GroundDetector : MonoBehaviour, IGroundDetector
 {
     // flag indicating if the player is currently on the ground
     private bool _grounded = true;
@@ -12,9 +12,9 @@ public class GroundDetector_SphereCast : MonoBehaviour, IGroundDetector
     [SerializeField]
     private Trigger _fallingTrigger;
 
-    // emitted when the player lands on the ground
+    // emitted when the player lands on the ground; will be passed TerrainData for where they landed
     [SerializeField]
-    private Trigger _landedTrigger;
+    private TriggerWithTerrainData _landedTrigger;
 
     [SerializeField]
     private PlayerConfigModule _playerConfig;
@@ -30,9 +30,9 @@ public class GroundDetector_SphereCast : MonoBehaviour, IGroundDetector
     // Update is called once per frame
     void FixedUpdate()
     {
-        var currentlyGrounded = IsAboveTerrain();
+        var currentlyGrounded = CheckAboveTerrain(out GameObject terrain);
         if (currentlyGrounded && !_grounded) {
-            _landedTrigger.Emit();
+            _landedTrigger.Emit(TerrainData.FromGameObject(terrain));
             _grounded = true;
         } else if (!currentlyGrounded && _grounded) {
             _fallingTrigger.Emit();
@@ -40,7 +40,9 @@ public class GroundDetector_SphereCast : MonoBehaviour, IGroundDetector
         }
     }
 
-    private bool IsAboveTerrain() {
+    // returns true if the is object is "on" terrain, and sets the out parameter
+    // to be the first piece of such terrain encountered if so
+    private bool CheckAboveTerrain(out GameObject terrain) {
         var hits = Physics.SphereCastAll(
             transform.position,
             _playerConfig.GroundDetectionRadius,
@@ -67,6 +69,10 @@ public class GroundDetector_SphereCast : MonoBehaviour, IGroundDetector
         }
 
         var terrainHits = hits.Where((hit) => hit.collider.CompareTag(_terrainTag));
+        terrain = terrainHits.Count() < 1
+            ? null
+            : terrain = terrainHits.First().collider.gameObject;
+        
         return terrainHits.Count() > 0;
     }
 }

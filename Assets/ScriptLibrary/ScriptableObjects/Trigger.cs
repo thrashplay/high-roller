@@ -5,7 +5,7 @@ using UnityEngine;
 
 public delegate void TriggerCallback();
 
-[CreateAssetMenu(fileName = "Trigger", menuName = "ScriptableObjects/Trigger", order = 1)]
+[CreateAssetMenu(fileName = "Trigger", menuName = "ScriptableObjects/Triggers/Default", order = 1)]
 public class Trigger : ScriptableObject
 {
     private readonly List<TriggerCallback> _listeners =  new List<TriggerCallback>();

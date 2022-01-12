@@ -16,7 +16,5 @@ MonoBehaviour:
   resources:
   - id: default
     path: TerrainTypes/default
-  - id: garbo
-    path: TerrainTypes/garbo
   - id: snow
     path: TerrainTypes/snow

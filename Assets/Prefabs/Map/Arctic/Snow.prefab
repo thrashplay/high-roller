@@ -123,6 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d19b487476ee18aea70c3a29f0c9816, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 0
   enterTrigger: {fileID: 0}
   exitTrigger: {fileID: 0}
   inZone: {fileID: 11400000, guid: 428e96e37526ed05581a757092893f16, type: 2}

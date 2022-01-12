@@ -13,7 +13,7 @@ public class PlayerStateController : MonoBehaviour
 
     // emitted when the player lands
     [SerializeField]
-    private Trigger _landingTrigger;
+    private TriggerWithTerrainData _landingTrigger;
 
     [SerializeField]
     private PlayerConfigModule _playerConfig;
@@ -36,8 +36,8 @@ public class PlayerStateController : MonoBehaviour
         _state.Fall();
     }
 
-    private void Land() {
-        _state.Land(!IsSafeFall(_initialHeight, transform.position.y));
+    private void Land(ITerrainData terrain) {
+        _state.Land(!IsSafeFall(terrain, _initialHeight, transform.position.y));
     }
 
     private void FixedUpdate() {
@@ -55,13 +55,12 @@ public class PlayerStateController : MonoBehaviour
         }
     }
 
-    // if the player landed at 'currentHeight' from a height of 'initialHeight', return their new state
-    private bool IsSafeFall(float initialHeight, float currentHeight) {
+    // if the player landed at 'currentHeight' from a height of 'initialHeight' on given terrain, determines if the
+    // fall was safe or not
+    private bool IsSafeFall(ITerrainData terrain, float initialHeight, float currentHeight) {
         var fallDistance = initialHeight - currentHeight;
         var wasShort = fallDistance <= _playerConfig.SafeFallDistance;
 
-        Debug.Log("Te: " + _state.CurrentTerrain + ", sf: " + fallDistance + ", " + wasShort + ", " + _state.CurrentTerrain.SafeToFall);
-
-        return _state.CurrentTerrain.SafeToFall || wasShort;
+        return terrain.TerrainType.SafeToFall || wasShort;
     }
 }

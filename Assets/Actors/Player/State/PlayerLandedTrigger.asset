@@ -9,6 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abef545bf624e55d98a97fc712bd43fd, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c28602c0ea846e2683d8e2976a15497, type: 3}
   m_Name: PlayerLandedTrigger
   m_EditorClassIdentifier: 
