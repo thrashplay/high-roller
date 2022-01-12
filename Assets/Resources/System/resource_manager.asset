@@ -16,5 +16,7 @@ MonoBehaviour:
   resources:
   - id: default
     path: TerrainTypes/default
+  - id: ramp
+    path: TerrainTypes/ramp
   - id: snow
     path: TerrainTypes/snow
