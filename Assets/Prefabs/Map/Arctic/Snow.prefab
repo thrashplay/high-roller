@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3236710421583461906}
   - component: {fileID: 5682396405444366073}
   - component: {fileID: 289883831010075099}
+  - component: {fileID: 863672493030595543}
   m_Layer: 0
   m_Name: Snow
   m_TagString: Terrain
@@ -126,3 +127,16 @@ MonoBehaviour:
   exitTrigger: {fileID: 0}
   inZone: {fileID: 11400000, guid: 428e96e37526ed05581a757092893f16, type: 2}
   tagToWatch: Player
+--- !u!114 &863672493030595543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7907653347075803822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1a4db2d78753c8478931360fe5fdfb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  terrainType: {fileID: 11400000, guid: 0520364fe72caeb1c9266293d3c00c27, type: 2}
