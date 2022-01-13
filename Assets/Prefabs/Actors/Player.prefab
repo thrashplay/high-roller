@@ -349,7 +349,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eac45d721634fe6de83181457ffd50a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minDistance: 75
+  maxPanSpeed: 5
+  minPanDelta: 0
+  _minDistance: 38
   _yPosition: 30
 --- !u!114 &5523354602950990675
 MonoBehaviour:

@@ -22,7 +22,7 @@ MonoBehaviour:
   _groundDetectionRadius: 0.2
   _reverseBoost: 0
   _safeFallDistance: 2.2
-  _slopeThreshold: 0
+  _slopeThreshold: 15
   _stationaryBoost: 0
   _stationaryThreshold: 1
   _turnBoost: 0
