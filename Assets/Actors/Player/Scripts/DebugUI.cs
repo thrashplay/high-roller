@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class DebugUI : MonoBehaviour
 {
+    // game object containing all UI elements
+    [SerializeField]
+    private GameObject ui;
+
     [SerializeField]
     private Text stateText;
 
@@ -12,11 +16,16 @@ public class DebugUI : MonoBehaviour
     private Text terrainText;
 
     [SerializeField]
+    private PlayerConfigModule playerConfig;
+
+    [SerializeField]
     private PlayerState playerState;
 
     void Update()
     {
-        stateText.text = playerState.State.ToString();
+        ui.SetActive(playerConfig.Debug);
+
+        stateText.text = playerState.State.ToString() + "," + playerState.MovementState.Name;
         terrainText.text = playerState.CurrentTerrain.name;
     }
 }

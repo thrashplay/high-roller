@@ -5,6 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerConfig", menuName = "ScriptableObjects/PlayerConfig", order = 1)]
 public class PlayerConfigModule : ScriptableObject
 {
+    [SerializeField]
+    // whether to render debug objects
+    private bool _debug = false;
+
     // the force applied when the player moves, if the marble is already rolling
     [SerializeField]
     private float _continuousForce = 10;
@@ -17,9 +21,13 @@ public class PlayerConfigModule : ScriptableObject
     [SerializeField]
     private float _freefallGravityMultipler = 2;
 
+    // extra gravity multipler applied when the player is moving down a slope
     [SerializeField]
-    // whether to render debug objects for ground detection
-    private bool _groundDetectionDebug = false;
+    private float _slopeSlideBoost = 0;
+
+    // extra impulse applied when the player is climbing a slope
+    [SerializeField]
+    private float _slopeClimbAssist = 0;
 
     [SerializeField]
     // max distance to cast ground detection spheres (must be > 0)
@@ -36,6 +44,10 @@ public class PlayerConfigModule : ScriptableObject
     // the max distance the player can fall before shattering
     [SerializeField]
     private float _safeFallDistance = 0;
+
+    // minimum slope before terrain is considered "not flat"
+    [SerializeField]
+    private float _slopeThreshold = 0;
 
     // the extra force applied when the player moves, if the marble is below a certain speed threshold
     // note this is buggy right now, and kicks in oddly on reversals
@@ -62,8 +74,16 @@ public class PlayerConfigModule : ScriptableObject
         get { return _freefallGravityMultipler; }
     }
 
-    public bool GroundDetectionDebug {
-        get { return _groundDetectionDebug; }
+    public float SlopeClimbAssist {
+        get { return _slopeClimbAssist; }
+    }
+
+    public float SlopeSlideBoost {
+        get { return _slopeSlideBoost; }
+    }
+
+    public bool Debug {
+        get { return _debug; }
     }
 
     public float GroundDetectionDistance {
@@ -80,6 +100,10 @@ public class PlayerConfigModule : ScriptableObject
 
     public float SafeFallDistance {
         get { return _safeFallDistance; }
+    }
+
+    public float SlopeThreshold {
+        get { return _slopeThreshold; }
     }
 
     public float StationaryBoost {

@@ -35,6 +35,11 @@ public class PlayerState : ScriptableObject
     [SerializeField]
     private TerrainType snow;
 
+    private void Awake() 
+    {
+        MovementState = MovementState.OnFlatTerrain;
+    }
+
     public void AddStateChangeListener(StateChangeCallback listener)
     {
         _stateChangeCallbacks.Add(listener);
@@ -44,6 +49,8 @@ public class PlayerState : ScriptableObject
     {
         _stateChangeCallbacks.Remove(listener);
     }
+
+    public MovementState MovementState { get; set; }
 
     public PlayerStateType State {
         get { return _state; }

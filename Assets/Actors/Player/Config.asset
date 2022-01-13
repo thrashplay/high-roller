@@ -12,14 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0caaf4102a84ca6ea8120ab57ce9993f, type: 3}
   m_Name: Config
   m_EditorClassIdentifier: 
+  _debug: 0
   _continuousForce: 15
   _endlessFallHeight: 20
   _freefallGravityMultipler: 9
-  _groundDetectionDebug: 0
-  _groundDetectionDistance: 0.25
-  _groundDetectionRadius: 0.45
+  _slopeSlideBoost: 15
+  _slopeClimbAssist: 0.25
+  _groundDetectionDistance: 0.45
+  _groundDetectionRadius: 0.2
   _reverseBoost: 0
   _safeFallDistance: 2.2
+  _slopeThreshold: 0
   _stationaryBoost: 0
   _stationaryThreshold: 1
   _turnBoost: 0

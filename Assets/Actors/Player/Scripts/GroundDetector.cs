@@ -50,22 +50,22 @@ public class GroundDetector : MonoBehaviour, IGroundDetector
             _playerConfig.GroundDetectionDistance
         );
 
-        if (_playerConfig.GroundDetectionDebug) {
+        if (_playerConfig.Debug) {
             var radius = _playerConfig.GroundDetectionRadius;
             
-            Debug.DrawLine(
-                transform.TransformVector(new Vector3(radius, 0, 0)),
-                transform.TransformVector(new Vector3(-radius, 0, 0)),
-                Color.red
-            );
+            // Debug.DrawLine(
+            //     transform.TransformVector(new Vector3(radius, 0, 0)),
+            //     transform.TransformVector(new Vector3(-radius, 0, 0)),
+            //     Color.red
+            // );
 
-            Debug.DrawLine(
-                transform.TransformVector(new Vector3(0, 0, radius)),
-                transform.TransformVector(new Vector3(0, 0, -radius)),
-                Color.red
-            );
+            // Debug.DrawLine(
+            //     transform.TransformVector(new Vector3(0, 0, radius)),
+            //     transform.TransformVector(new Vector3(0, 0, -radius)),
+            //     Color.red
+            // );
 
-            Debug.DrawRay(transform.position, Vector3.down * _playerConfig.GroundDetectionDistance, Color.red);
+            // Debug.DrawRay(transform.position, Vector3.down * _playerConfig.GroundDetectionDistance, Color.red);
         }
 
         var terrainHits = hits.Where((hit) => hit.collider.CompareTag(_terrainTag));
