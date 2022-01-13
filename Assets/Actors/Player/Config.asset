@@ -16,8 +16,8 @@ MonoBehaviour:
   _continuousForce: 15
   _endlessFallHeight: 20
   _freefallGravityMultipler: 9
-  _slopeSlideBoost: 15
-  _slopeClimbAssist: 0.25
+  _slopeSlideBoost: 30
+  _slopeClimbAssist: 0.75
   _groundDetectionDistance: 0.45
   _groundDetectionRadius: 0.2
   _reverseBoost: 0
