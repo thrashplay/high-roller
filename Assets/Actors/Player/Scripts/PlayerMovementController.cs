@@ -16,8 +16,11 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField]
     private PlayerState playerState;
 
-    // the vector of the slope the player is on; (0, 0, 0) for flat terrain
+    // the vector of the slope the player is on; (0, 0, 0) if not on a slope
     private Vector3 _slope;
+
+    // a vector normal to the terrain the player is on; Vector3.up if not on terrain
+    private Vector3 _terrainNormal;
 
     void Start()
     {
@@ -33,11 +36,15 @@ public class PlayerMovementController : MonoBehaviour
         if (IsInputAllowed()) {
             ApplyUserInputBasedForces();
         }
-
         // apply special downward sloping and falling forces
         ApplySpecialGravity();
 
         var terrain = playerState.CurrentTerrain;
+
+        if (terrain.friction > 0) {
+            _body.AddForce(terrain.friction * -_body.velocity);
+        }
+
         if (terrain.VelocityMultiplier != 1) {
             _body.angularVelocity *= terrain.VelocityMultiplier;
             _body.velocity *= terrain.VelocityMultiplier;
@@ -73,7 +80,12 @@ public class PlayerMovementController : MonoBehaviour
 
         if (currentDirection != Direction.None) {
             var position = new Vector3(0, 1, 0);
-            var vector = _inputController.GetInputVector();
+            var vector = Vector3.ProjectOnPlane(GetInputVector(), _terrainNormal);
+
+            if (playerConfig.Debug) 
+            {
+                Debug.DrawRay(transform.position, vector.normalized, Color.cyan);
+            }
 
             // we apply only one of stationary boost, reverse boost or turn boost, favoring them in that order
             if (playerConfig.StationaryBoost > 0 && !IsMoving()) {
@@ -96,17 +108,10 @@ public class PlayerMovementController : MonoBehaviour
 
             var currentDirection = _inputController.GetRequestedDirection();
             if (currentDirection != Direction.None) {
-                var angle = Vector3.Angle(_slope, _inputController.GetInputVector());
+                var angle = Vector3.Angle(_slope, GetInputVector());
                 if (angle > 90) {
-                    var magnitude = playerConfig.SlopeClimbAssist * ((angle - 90F) / 180F);
-                    var direction = _inputController.GetInputVector();
-
-                    if (playerConfig.Debug) 
-                    {
-                        Debug.DrawRay(transform.position, 10 * magnitude * direction, Color.yellow);
-                        Debug.DrawRay(transform.position, _inputController.GetInputVector(), Color.blue);
-                    }
-                    _body.AddForce(magnitude * direction, ForceMode.Impulse); 
+                    var upSlope = -1 * _slope;
+                    _body.AddForce(playerConfig.SlopeClimbAssist * upSlope, ForceMode.Impulse); 
                 }
             }
         } else if (playerState.MovementState == MovementState.Falling)
@@ -122,6 +127,10 @@ public class PlayerMovementController : MonoBehaviour
     private bool IsMoving()
     {
         return _body.velocity.magnitude >= playerConfig.StationaryThreshold;
+    }
+
+    private Vector3 GetInputVector() {
+        return Vector3.ProjectOnPlane(_inputController.GetInputVector(), _terrainNormal);
     }
 
     private void CheckTerrainContact()
@@ -162,11 +171,14 @@ public class PlayerMovementController : MonoBehaviour
                 playerState.MovementState = MovementState.OnFlatTerrain;
                 _slope = Vector3.zero;
             }
+
+            _terrainNormal = hit.normal;
         }
         else
         {
             playerState.MovementState = MovementState.Falling;
             _slope = Vector3.zero;
+            _terrainNormal = Vector3.up;
         }
     }
 }

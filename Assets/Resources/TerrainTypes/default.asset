@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89af59f30b517e150beb593becb1e569, type: 3}
   m_Name: default
   m_EditorClassIdentifier: 
+  friction: 0.5
   SafeToFall: 0
   VelocityMultiplier: 1
