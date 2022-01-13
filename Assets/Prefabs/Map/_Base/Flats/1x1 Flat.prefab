@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3688022672825122159}
   - component: {fileID: 8143171648229255098}
   m_Layer: 0
-  m_Name: 1x1
+  m_Name: 1x1 Flat
   m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ MonoBehaviour:
       m_Rotation: 0
       m_Anchor: 0
     m_Material: {fileID: 0}
-    m_SubmeshIndex: 2
+    m_SubmeshIndex: 1
     m_ManualUV: 0
     elementGroup: -1
     m_TextureGroup: -1
@@ -95,7 +95,7 @@ MonoBehaviour:
       m_Rotation: 0
       m_Anchor: 0
     m_Material: {fileID: 0}
-    m_SubmeshIndex: 2
+    m_SubmeshIndex: 1
     m_ManualUV: 0
     elementGroup: -1
     m_TextureGroup: -1
@@ -112,7 +112,7 @@ MonoBehaviour:
       m_Rotation: 0
       m_Anchor: 0
     m_Material: {fileID: 0}
-    m_SubmeshIndex: 2
+    m_SubmeshIndex: 1
     m_ManualUV: 0
     elementGroup: -1
     m_TextureGroup: -1
@@ -129,7 +129,7 @@ MonoBehaviour:
       m_Rotation: 360
       m_Anchor: 0
     m_Material: {fileID: 0}
-    m_SubmeshIndex: 1
+    m_SubmeshIndex: 0
     m_ManualUV: 0
     elementGroup: -1
     m_TextureGroup: -1
@@ -146,7 +146,7 @@ MonoBehaviour:
       m_Rotation: 0
       m_Anchor: 9
     m_Material: {fileID: 0}
-    m_SubmeshIndex: 0
+    m_SubmeshIndex: 2
     m_ManualUV: 1
     elementGroup: -1
     m_TextureGroup: -1
@@ -269,9 +269,9 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e54dc4ce757a8da84bc969c1290763a0, type: 2}
   - {fileID: 2100000, guid: 3b1250856d419650bb12eb23327b034c, type: 2}
-  - {fileID: 2100000, guid: b090c13744ced933892c85dfe78678f4, type: 2}
+  - {fileID: 2100000, guid: ae0bb22e38e0ed2ed85a6351509939e0, type: 2}
+  - {fileID: 2100000, guid: fd0d869d3e7c972f3baae0551cc53505, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

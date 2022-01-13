@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0caaf4102a84ca6ea8120ab57ce9993f, type: 3}
   m_Name: Config
   m_EditorClassIdentifier: 
-  _debug: 1
+  _debug: 0
   _continuousForce: 15
   _endlessFallHeight: 20
   _freefallGravityMultipler: 9
