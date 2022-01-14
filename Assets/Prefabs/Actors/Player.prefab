@@ -353,6 +353,7 @@ MonoBehaviour:
   minPanDelta: 0
   _minDistance: 38
   _yPosition: 30
+  _respawnTrigger: {fileID: 11400000, guid: 243c905a14aac15c6b63898ecbd15937, type: 2}
 --- !u!114 &5523354602950990675
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -24,6 +24,18 @@ public class CameraController : MonoBehaviour
 
     private float _panZ = 0;
 
+    // immediately pan to the "correct" camera position, based on the tracked object
+    public void SnapToPosition() {
+        CalculateCameraPan();
+        
+        _panX = _targetX;
+        _panZ = _targetZ;
+    }
+
+    void Start() { 
+        SnapToPosition();
+    }
+
     void Update()
     {
         var doubleMinDistance = _minDistance * 2;

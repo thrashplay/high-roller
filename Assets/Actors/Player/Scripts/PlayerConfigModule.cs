@@ -84,6 +84,7 @@ public class PlayerConfigModule : ScriptableObject
 
     public bool Debug {
         get { return _debug; }
+        set { _debug = value; }
     }
 
     public float GroundDetectionDistance {
