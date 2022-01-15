@@ -103,16 +103,15 @@ public class PlayerMovementController : MonoBehaviour
     private void ApplySpecialGravity() {
         if (playerState.MovementState.OnSlope)
         {
-            // apply downward "slide" boost
+            // ALWAYS apply downward "slide" boost along the slope's vector (since we have no gravity)
             _body.AddForce(_slope * playerConfig.SlopeSlideBoost, ForceMode.Acceleration);
 
             var currentDirection = _inputController.GetRequestedDirection();
-            if (currentDirection != Direction.None) {
-                var angle = Vector3.Angle(_slope, GetInputVector());
-                if (angle > 90) {
-                    var upSlope = -1 * _slope;
-                    _body.AddForce(playerConfig.SlopeClimbAssist * upSlope, ForceMode.Impulse); 
-                }
+            var angle = Vector3.Angle(_slope, GetInputVector());
+            if (currentDirection != Direction.None && angle > 90) {
+                // applying helping force when climbing up
+                var upSlope = -1 * _slope;
+                _body.AddForce(playerConfig.SlopeClimbAssist * upSlope, ForceMode.Impulse); 
             }
         } else if (playerState.MovementState == MovementState.Falling)
         {
@@ -146,7 +145,10 @@ public class PlayerMovementController : MonoBehaviour
 
         if (terrainHits.Count() > 0)
         {
-            var hit = terrainHits.First();
+            // if multiple hits we take the one closest to the center
+            // this prevents (minimizes?) the leading sphere edge from detecting a wall instead of floor
+            var hit = terrainHits.OrderBy(hit => Vector3.Distance(hit.point, transform.position)).First();
+            
             var angle = Vector3.Angle(Vector3.up, hit.normal);
             var sloped = angle > playerConfig.SlopeThreshold;
 
@@ -156,10 +158,10 @@ public class PlayerMovementController : MonoBehaviour
 
             if (playerConfig.Debug) 
             {
-                Debug.DrawRay(hit.point, hit.normal, Color.red);
                 Debug.DrawRay(transform.position, _body.velocity * 0.5F, Color.green);
 
                 Debug.DrawRay(transform.position, slope, Color.white);
+                Debug.DrawRay(hit.point, hit.normal, Color.red);
             }
 
             if (sloped) {
@@ -173,6 +175,7 @@ public class PlayerMovementController : MonoBehaviour
             }
 
             _terrainNormal = hit.normal;
+            playerState.CurrentTerrain = TerrainData.FromGameObject(hit.collider.gameObject).TerrainType;
         }
         else
         {

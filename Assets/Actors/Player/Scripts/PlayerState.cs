@@ -69,12 +69,7 @@ public class PlayerState : ScriptableObject
         }
     }
 
-    public TerrainType CurrentTerrain {
-
-        get {
-            return isInSnow.Value ? snow : defaultTerrain;
-        }
-    }
+    public TerrainType CurrentTerrain { get; set; }
 
     // return true if the state indicates the player has reached the goal
     public bool Winning {
