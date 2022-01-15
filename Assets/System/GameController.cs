@@ -4,11 +4,36 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
+    // root game object to hold the map
     [SerializeField]
-    private PlayerConfigModule _playerConfig;
+    private GameObject mapRoot;
+
+    [SerializeField]
+    private PlayerConfigModule playerConfig;
+
+    // respawn controller used to spawn player objects
+    private RespawnController _respawnController;
+
+    // the currently loaded map
+    private GameObject _currentMap;
+
+    public void LoadLevel(LevelData level) {
+        if (_currentMap != null) {
+            Destroy(_currentMap);
+        }
+
+        Debug.LogFormat("Loading level: {0}", level.Description);
+        _respawnController.Despawn();
+        _currentMap = Instantiate(level.Map, mapRoot.transform);
+        _respawnController.Respawn(level.InitialSpawnPoint);
+        Debug.Log("Level loading complete.");
+    }
 
     private void Start() {
-        _playerConfig.Debug = false;
+        playerConfig.Debug = false;
+        _respawnController = GetComponent<RespawnController>();
+
+        LoadLevel(ResourceManager.GetInstance().Load<LevelData>("labyrinth"));
     }
 
     void Update()
@@ -19,7 +44,7 @@ public class GameController : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Tilde)) {
-            _playerConfig.Debug = !_playerConfig.Debug;
+            playerConfig.Debug = !playerConfig.Debug;
         }
     }
 }
