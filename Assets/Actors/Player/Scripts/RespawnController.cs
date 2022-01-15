@@ -42,7 +42,7 @@ public class RespawnController : MonoBehaviour
             _positions.Enqueue(_player.transform.position);
         }
 
-        if (_positions.Count > 10) {
+        if (_positions.Count > 1) {
             _initialPosition = _positions.Dequeue();
         }
     }
