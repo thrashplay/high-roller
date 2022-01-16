@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4db41929b5060d4f9be2c18f2bfb35d3, type: 3}
-  m_Name: labyrinth
+  m_Name: all_fall_down
   m_EditorClassIdentifier: 
-  description: Labyrinth
+  description: All Fall Down
   initialSpawnPoint: {x: 0, y: 0.5, z: 0}
   map: {fileID: 1527145057014499771, guid: 31c79deb4aad94d58a9644e1cb8fd744, type: 3}

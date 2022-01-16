@@ -14,8 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceTypeMap: {fileID: 11400000, guid: 465679c205ec3744b99495d5319e06ed, type: 2}
   resources:
-  - id: labyrinth
-    path: Levels/labyrinth
+  - id: all_fall_down
+    path: Levels/all_fall_down
+  - id: level_select
+    path: Levels/level_select
+  - id: slope_trope
+    path: Levels/slope_trope
   - id: default
     path: TerrainTypes/default
   - id: ramp

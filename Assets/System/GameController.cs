@@ -18,12 +18,13 @@ public class GameController : MonoBehaviour
     private GameObject _currentMap;
 
     public void LoadLevel(LevelData level) {
+        _respawnController.Despawn();
+
         if (_currentMap != null) {
             Destroy(_currentMap);
         }
 
         Debug.LogFormat("Loading level: {0}", level.Description);
-        _respawnController.Despawn();
         _currentMap = Instantiate(level.Map, mapRoot.transform);
         _respawnController.Respawn(level.InitialSpawnPoint);
         Debug.Log("Level loading complete.");
@@ -33,14 +34,13 @@ public class GameController : MonoBehaviour
         playerConfig.Debug = false;
         _respawnController = GetComponent<RespawnController>();
 
-        LoadLevel(ResourceManager.GetInstance().Load<LevelData>("labyrinth"));
+        LoadLevel(ResourceManager.GetInstance().Load<LevelData>("level_select"));
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)) {
-            Debug.Log("Quitting...");
-            Application.Quit();
+            LoadLevel(ResourceManager.GetInstance().Load<LevelData>("level_select"));
         }
 
         if (Input.GetKeyDown(KeyCode.Tilde)) {
