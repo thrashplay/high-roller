@@ -6,41 +6,25 @@ public class GameController : MonoBehaviour
 {
     // root game object to hold the map
     [SerializeField]
-    private GameObject mapRoot;
-
-    [SerializeField]
     private PlayerConfigModule playerConfig;
 
-    // respawn controller used to spawn player objects
-    private RespawnController _respawnController;
+    private LevelManager _levelManager;
 
-    // the currently loaded map
-    private GameObject _currentMap;
-
-    public void LoadLevel(LevelData level) {
-        _respawnController.Despawn();
-
-        if (_currentMap != null) {
-            Destroy(_currentMap);
-        }
-
-        Debug.LogFormat("Loading level: {0}", level.Description);
-        _currentMap = Instantiate(level.Map, mapRoot.transform);
-        _respawnController.Respawn(level.InitialSpawnPoint);
-        Debug.Log("Level loading complete.");
+    public static GameController GetInstance() {
+        return GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
     }
 
     private void Start() {
         playerConfig.Debug = false;
-        _respawnController = GetComponent<RespawnController>();
 
-        LoadLevel(ResourceManager.GetInstance().Load<LevelData>("level_select"));
+        _levelManager = ServiceLocator.Instance.GetService<LevelManager>();
+        _levelManager.LoadLevel(ResourceManager.GetInstance().Load<LevelData>("level_select"));
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)) {
-            LoadLevel(ResourceManager.GetInstance().Load<LevelData>("level_select"));
+            _levelManager.LoadLevel(ResourceManager.GetInstance().Load<LevelData>("level_select"));
         }
 
         if (Input.GetKeyDown(KeyCode.Tilde)) {
