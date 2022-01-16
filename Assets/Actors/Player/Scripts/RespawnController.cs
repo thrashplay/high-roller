@@ -27,6 +27,28 @@ public class RespawnController : MonoBehaviour
     [SerializeField]
     private PlayerState _state;
 
+    public void Despawn() {
+        if (_player != null) {
+            Debug.Log("Despawning player.");
+
+            Destroy(_player);
+            _player = null;
+        }
+    }
+
+    // respawns the player at the last checkpoint
+    public void Respawn() {
+        OnRespawn();
+    }
+
+    // respawns the player at the specified location, using the last checkpoint if null
+    public void Respawn(Vector3 location) {
+        Despawn();
+
+        _initialPosition = location;
+        OnRespawn();
+    }
+
     void Start()
     {
         _state.AddStateChangeListener(OnStateChange);
@@ -80,7 +102,10 @@ public class RespawnController : MonoBehaviour
     }
 
     private void OnRespawn() {
-        Destroy(_player);
+        Despawn();
+
+        Debug.LogFormat("Respawning player at {0}.", _initialPosition);
+
         _player = Instantiate(_playerPrefab, _initialPosition, Quaternion.identity);
         _positions.Clear();
         

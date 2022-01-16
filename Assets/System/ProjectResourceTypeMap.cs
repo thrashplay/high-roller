@@ -8,6 +8,7 @@ public class ProjectResourceTypeMap : AbstractResourceTypeMap
     public override Dictionary<string, System.Type> ResourceTypes { 
         get {
             return new Dictionary<string, System.Type> {
+                { "Levels", typeof(LevelData) },
                 { "TerrainTypes", typeof(TerrainType) },
             };
         }
