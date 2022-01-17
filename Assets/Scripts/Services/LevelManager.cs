@@ -61,7 +61,6 @@ public class LevelManager : MonoBehaviour
 
     private void Awake() {
         ServiceLocator.Instance.Register(this);
-    
     }
 
     private void Start()

@@ -29927,6 +29927,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c2df54fe5bf84d8cbdcfd2dd05914d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defaultLevel: {fileID: 11400000, guid: 6b407f4da158bb3bb8857b8f07c7a9ee, type: 2}
   mapRoot: {fileID: 1851964198}
 --- !u!114 &1504446774
 MonoBehaviour:
@@ -29943,7 +29944,6 @@ MonoBehaviour:
   _playerPrefab: {fileID: 8397388066573923010, guid: 75306ec3fed329571af80fa840982f83, type: 3}
   _spawnPoint: {x: 0, y: 0, z: 0}
   _state: {fileID: 11400000, guid: 2237b39598be763a6a7395e79baf60dc, type: 2}
-  _updateSpawnPointTrigger: {fileID: 11400000, guid: 3b0e20186b4107dfab603b7f59c60865, type: 2}
 --- !u!43 &1507411855
 Mesh:
   m_ObjectHideFlags: 0
