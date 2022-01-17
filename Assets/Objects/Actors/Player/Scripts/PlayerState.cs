@@ -39,7 +39,7 @@ public class PlayerState : ScriptableObject
     {
         MovementState = MovementState.OnFlatTerrain;
     }
-
+    
     public void AddStateChangeListener(StateChangeCallback listener)
     {
         _stateChangeCallbacks.Add(listener);
@@ -51,6 +51,10 @@ public class PlayerState : ScriptableObject
     }
 
     public MovementState MovementState { get; set; }
+
+    public void Reset() {
+        State = PlayerStateType.NeverSpawned;
+    }
 
     public PlayerStateType State {
         get { return _state; }
@@ -83,32 +87,32 @@ public class PlayerState : ScriptableObject
         isInSnow.Value = false;
 
         State = PlayerStateType.Respawning;
+
         return true;
     }
 
     public bool RespawnComplete() {
-        switch (State) {
-            case PlayerStateType.Respawning:
-                State = PlayerStateType.Alive;
-                return true;
-        }
-
-        return false;
+        State = PlayerStateType.Alive;
+        return true;
     }
 
     public bool Fall() {
         switch (State) {
-            case PlayerStateType.Alive:
-            case PlayerStateType.Dizzy:
-                State = PlayerStateType.Falling;
-                return true;
+            case PlayerStateType.Falling:
+            case PlayerStateType.FallingToDeath:
+            case PlayerStateType.WinningWhileFalling:
+                // already falling!
+                return false;
 
             case PlayerStateType.Winning:
                 State = PlayerStateType.WinningWhileFalling;
                 return true;
-        }
 
-        return false;
+            default:
+                State = PlayerStateType.Falling;
+                return true;
+
+        }
     }
 
     public bool FellTooFar() {

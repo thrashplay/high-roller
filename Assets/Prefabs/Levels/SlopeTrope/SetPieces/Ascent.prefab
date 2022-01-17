@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1181638768349633102}
   - component: {fileID: 1181638768349633103}
   - component: {fileID: 1181638768349633096}
-  - component: {fileID: 1181638768349633097}
+  - component: {fileID: 6335057061176577466}
   m_Layer: 6
   m_Name: Respawn Zone
   m_TagString: Respawn Zone
@@ -96,7 +96,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1181638768349633097
+--- !u!114 &6335057061176577466
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,14 +105,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1181638768349633099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d19b487476ee18aea70c3a29f0c9816, type: 3}
+  m_Script: {fileID: 11500000, guid: 581ff227769cf9673801951fd2387f39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
-  enterTrigger: {fileID: 0}
-  exitTrigger: {fileID: 0}
-  inZone: {fileID: 11400000, guid: bec8b1aba6aba8e96aa0283a03483884, type: 2}
-  tagToWatch: Player
+  triggeringTag: Player
 --- !u!1 &1181638768654569216
 GameObject:
   m_ObjectHideFlags: 0
@@ -473,7 +469,7 @@ GameObject:
   - component: {fileID: 1181638770080700482}
   - component: {fileID: 1181638770080700483}
   - component: {fileID: 1181638770080700508}
-  - component: {fileID: 1181638770080700509}
+  - component: {fileID: 2312084815963241126}
   m_Layer: 6
   m_Name: Respawn Zone
   m_TagString: Respawn Zone
@@ -557,7 +553,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1181638770080700509
+--- !u!114 &2312084815963241126
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -566,14 +562,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1181638770080700511}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d19b487476ee18aea70c3a29f0c9816, type: 3}
+  m_Script: {fileID: 11500000, guid: 581ff227769cf9673801951fd2387f39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
-  enterTrigger: {fileID: 0}
-  exitTrigger: {fileID: 0}
-  inZone: {fileID: 11400000, guid: bec8b1aba6aba8e96aa0283a03483884, type: 2}
-  tagToWatch: Player
+  triggeringTag: Player
 --- !u!1 &1181638770373922148
 GameObject:
   m_ObjectHideFlags: 0
@@ -1250,7 +1242,7 @@ GameObject:
   - component: {fileID: 8966328022252645031}
   - component: {fileID: 8966328022252645030}
   - component: {fileID: 8966328022252645049}
-  - component: {fileID: 8966328022252645048}
+  - component: {fileID: 3020525563244039446}
   m_Layer: 6
   m_Name: Respawn Zone
   m_TagString: Respawn Zone
@@ -1334,7 +1326,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8966328022252645048
+--- !u!114 &3020525563244039446
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1343,14 +1335,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8966328022252645050}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d19b487476ee18aea70c3a29f0c9816, type: 3}
+  m_Script: {fileID: 11500000, guid: 581ff227769cf9673801951fd2387f39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
-  enterTrigger: {fileID: 0}
-  exitTrigger: {fileID: 0}
-  inZone: {fileID: 11400000, guid: bec8b1aba6aba8e96aa0283a03483884, type: 2}
-  tagToWatch: Player
+  triggeringTag: Player
 --- !u!1 &8966328022730096513
 GameObject:
   m_ObjectHideFlags: 0
@@ -2378,54 +2366,6 @@ PrefabInstance:
     - target: {fileID: 8770717643010514937, guid: 62a1769c107f1b1dc8c4f887c2b9d294, type: 3}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8770717643010514937, guid: 62a1769c107f1b1dc8c4f887c2b9d294, type: 3}
-      propertyPath: m_SelectedEdges.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8770717643010514937, guid: 62a1769c107f1b1dc8c4f887c2b9d294, type: 3}
-      propertyPath: m_SelectedFaces.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8770717643010514937, guid: 62a1769c107f1b1dc8c4f887c2b9d294, type: 3}
-      propertyPath: m_SelectedVertices.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8770717643010514937, guid: 62a1769c107f1b1dc8c4f887c2b9d294, type: 3}
-      propertyPath: m_SelectedEdges.Array.data[0].b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8770717643010514937, guid: 62a1769c107f1b1dc8c4f887c2b9d294, type: 3}
-      propertyPath: m_SelectedEdges.Array.data[1].a
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8770717643010514937, guid: 62a1769c107f1b1dc8c4f887c2b9d294, type: 3}
-      propertyPath: m_SelectedEdges.Array.data[2].a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8770717643010514937, guid: 62a1769c107f1b1dc8c4f887c2b9d294, type: 3}
-      propertyPath: m_SelectedEdges.Array.data[2].b
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8770717643010514937, guid: 62a1769c107f1b1dc8c4f887c2b9d294, type: 3}
-      propertyPath: m_SelectedEdges.Array.data[3].a
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8770717643010514937, guid: 62a1769c107f1b1dc8c4f887c2b9d294, type: 3}
-      propertyPath: m_SelectedEdges.Array.data[3].b
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8770717643010514937, guid: 62a1769c107f1b1dc8c4f887c2b9d294, type: 3}
-      propertyPath: m_SelectedVertices.Array.data[1]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8770717643010514937, guid: 62a1769c107f1b1dc8c4f887c2b9d294, type: 3}
-      propertyPath: m_SelectedVertices.Array.data[2]
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8770717643010514937, guid: 62a1769c107f1b1dc8c4f887c2b9d294, type: 3}
-      propertyPath: m_SelectedVertices.Array.data[3]
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8770717643010514938, guid: 62a1769c107f1b1dc8c4f887c2b9d294, type: 3}
       propertyPath: m_Mesh

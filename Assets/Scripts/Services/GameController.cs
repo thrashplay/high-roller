@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    // root game object to hold the map
     [SerializeField]
     private PlayerConfigModule playerConfig;
 
@@ -18,7 +17,6 @@ public class GameController : MonoBehaviour
         playerConfig.Debug = false;
 
         _levelManager = ServiceLocator.Instance.GetService<LevelManager>();
-        _levelManager.LoadLevel(ResourceManager.GetInstance().Load<LevelData>("level_select"));
     }
 
     void Update()

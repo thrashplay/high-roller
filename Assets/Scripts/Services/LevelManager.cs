@@ -10,6 +10,10 @@ public interface ILevelChangeListener {
 
 public class LevelManager : MonoBehaviour
 {
+    // level displayed initially, and whenever the player reaches a goal
+    [SerializeField]
+    private LevelData defaultLevel;
+
     // root game object to hold the map
     [SerializeField]
     private GameObject mapRoot;
@@ -63,6 +67,7 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         _playerManager = GetComponent<PlayerManager>();
+        LoadLevel(defaultLevel);
     }
 
     private void OnDestroy() {
