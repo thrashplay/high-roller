@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44658822, g: 0.49642307, b: 0.5748253, a: 1}
+  m_IndirectSpecularColor: {r: 0.37312624, g: 0.380745, b: 0.35872802, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -29937,13 +29937,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1504446770}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e2eae92bf2e656fe9151858b459b36b, type: 3}
+  m_Script: {fileID: 11500000, guid: 11e675ec9c6ca287cb08f5b5bf2bded3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _initialPosition: {x: 0, y: 0, z: 0}
-  inRespawnZone: {fileID: 11400000, guid: bec8b1aba6aba8e96aa0283a03483884, type: 2}
   _playerPrefab: {fileID: 8397388066573923010, guid: 75306ec3fed329571af80fa840982f83, type: 3}
+  _spawnPoint: {x: 0, y: 0, z: 0}
   _state: {fileID: 11400000, guid: 2237b39598be763a6a7395e79baf60dc, type: 2}
+  _updateSpawnPointTrigger: {fileID: 11400000, guid: 3b0e20186b4107dfab603b7f59c60865, type: 2}
 --- !u!43 &1507411855
 Mesh:
   m_ObjectHideFlags: 0

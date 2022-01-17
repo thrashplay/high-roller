@@ -225,6 +225,7 @@ GameObject:
   - component: {fileID: 5523354602950990675}
   - component: {fileID: 5380824720552401358}
   - component: {fileID: 2391493018055198495}
+  - component: {fileID: 1707494729803699744}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -353,7 +354,6 @@ MonoBehaviour:
   minPanDelta: 0
   _minDistance: 38
   _yPosition: 30
-  _respawnTrigger: {fileID: 11400000, guid: 243c905a14aac15c6b63898ecbd15937, type: 2}
 --- !u!114 &5523354602950990675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,6 +400,18 @@ MonoBehaviour:
   _landingTrigger: {fileID: 11400000, guid: 0c5f50c6b619f923ab9516759602a9a9, type: 2}
   _playerConfig: {fileID: 11400000, guid: 89d3302f0e70429f5bd1b8ba3bc29d17, type: 2}
   _state: {fileID: 11400000, guid: 2237b39598be763a6a7395e79baf60dc, type: 2}
+--- !u!114 &1707494729803699744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8397388066573923010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91a5405d60aa9b4e5adb05540dbd275f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8838159993548357470
 GameObject:
   m_ObjectHideFlags: 0
