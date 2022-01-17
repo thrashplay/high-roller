@@ -24,7 +24,7 @@ public class LevelManager : MonoBehaviour
     private readonly List<ILevelChangeListener> _listeners =  new List<ILevelChangeListener>();
 
     // respawn controller used to spawn player objects
-    private RespawnController _respawnController;
+    private PlayerManager _playerManager;
 
     public void AddListener(ILevelChangeListener listener)
     {
@@ -39,7 +39,7 @@ public class LevelManager : MonoBehaviour
     public void LoadLevel(LevelData level) {
         EmitLevelUnload(_currentLevel);
 
-        _respawnController.Despawn();
+        _playerManager.Despawn();
 
         if (_currentMap != null) {
             Destroy(_currentMap);
@@ -48,7 +48,7 @@ public class LevelManager : MonoBehaviour
         Debug.LogFormat("Loading level: {0}", level.Description);
         _currentLevel = level;
         _currentMap = Instantiate(level.Map, mapRoot.transform);
-        _respawnController.Respawn(level.InitialSpawnPoint);
+        _playerManager.Respawn(level.InitialSpawnPoint);
 
         EmitLevelLoad(_currentLevel);
 
@@ -62,7 +62,7 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        _respawnController = GetComponent<RespawnController>();
+        _playerManager = GetComponent<PlayerManager>();
     }
 
     private void OnDestroy() {

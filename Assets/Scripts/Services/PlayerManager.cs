@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RespawnController : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
     // the prefab representing the player object
     [SerializeField]

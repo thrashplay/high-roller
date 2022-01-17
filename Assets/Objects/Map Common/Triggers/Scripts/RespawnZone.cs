@@ -11,12 +11,12 @@ public class RespawnZone : MonoBehaviour
     // cached Player script for the player object
     private readonly MemoizedComponent<Transform> _transformMemo = new MemoizedComponent<Transform>();
 
-    private RespawnController _respawnController;
+    private PlayerManager _playerManager;
 
     private void Start() {
-        _respawnController = ServiceLocator.Instance.GetService<RespawnController>();
-        if (_respawnController == null) {
-            Debug.LogWarning("[RespawnZone] No RespawnController service registered.");
+        _playerManager = ServiceLocator.Instance.GetService<PlayerManager>();
+        if (_playerManager == null) {
+            Debug.LogWarning("[RespawnZone] No PlayerManager service registered.");
         }
     }
 
@@ -34,8 +34,8 @@ public class RespawnZone : MonoBehaviour
 
     private void OnPlayerInside(GameObject player) {
         var position = _transformMemo.Get(player).position;
-        if (_respawnController != null && position != null) {
-            _respawnController.UpdateSpawnPoint(position);
+        if (_playerManager != null && position != null) {
+            _playerManager.UpdateSpawnPoint(position);
         }
     }
 }
