@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1181638768349633102}
   - component: {fileID: 1181638768349633103}
   - component: {fileID: 1181638768349633096}
-  - component: {fileID: 1181638768349633097}
+  - component: {fileID: 6335057061176577466}
   m_Layer: 6
   m_Name: Respawn Zone
   m_TagString: Respawn Zone
@@ -96,7 +96,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1181638768349633097
+--- !u!114 &6335057061176577466
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -105,14 +105,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1181638768349633099}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d19b487476ee18aea70c3a29f0c9816, type: 3}
+  m_Script: {fileID: 11500000, guid: 581ff227769cf9673801951fd2387f39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
-  enterTrigger: {fileID: 0}
-  exitTrigger: {fileID: 0}
-  inZone: {fileID: 11400000, guid: bec8b1aba6aba8e96aa0283a03483884, type: 2}
-  tagToWatch: Player
+  triggeringTag: Player
 --- !u!1 &1181638768654569216
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,7 +202,7 @@ MonoBehaviour:
       m_Rotation: 0
       m_Anchor: 0
     m_Material: {fileID: 0}
-    m_SubmeshIndex: 2
+    m_SubmeshIndex: 3
     m_ManualUV: 0
     elementGroup: -1
     m_TextureGroup: -1
@@ -240,7 +236,7 @@ MonoBehaviour:
       m_Rotation: 0
       m_Anchor: 0
     m_Material: {fileID: 0}
-    m_SubmeshIndex: 2
+    m_SubmeshIndex: 3
     m_ManualUV: 0
     elementGroup: -1
     m_TextureGroup: -1
@@ -414,9 +410,10 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e54dc4ce757a8da84bc969c1290763a0, type: 2}
+  - {fileID: 2100000, guid: fd0d869d3e7c972f3baae0551cc53505, type: 2}
   - {fileID: 2100000, guid: 3b1250856d419650bb12eb23327b034c, type: 2}
-  - {fileID: 2100000, guid: b090c13744ced933892c85dfe78678f4, type: 2}
+  - {fileID: 0}
+  - {fileID: 2100000, guid: ae0bb22e38e0ed2ed85a6351509939e0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -472,7 +469,7 @@ GameObject:
   - component: {fileID: 1181638770080700482}
   - component: {fileID: 1181638770080700483}
   - component: {fileID: 1181638770080700508}
-  - component: {fileID: 1181638770080700509}
+  - component: {fileID: 2312084815963241126}
   m_Layer: 6
   m_Name: Respawn Zone
   m_TagString: Respawn Zone
@@ -556,7 +553,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1181638770080700509
+--- !u!114 &2312084815963241126
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -565,14 +562,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1181638770080700511}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d19b487476ee18aea70c3a29f0c9816, type: 3}
+  m_Script: {fileID: 11500000, guid: 581ff227769cf9673801951fd2387f39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
-  enterTrigger: {fileID: 0}
-  exitTrigger: {fileID: 0}
-  inZone: {fileID: 11400000, guid: bec8b1aba6aba8e96aa0283a03483884, type: 2}
-  tagToWatch: Player
+  triggeringTag: Player
 --- !u!1 &1181638770373922148
 GameObject:
   m_ObjectHideFlags: 0
@@ -634,7 +627,7 @@ MonoBehaviour:
       m_Rotation: 0
       m_Anchor: 0
     m_Material: {fileID: 0}
-    m_SubmeshIndex: 2
+    m_SubmeshIndex: 3
     m_ManualUV: 0
     elementGroup: -1
     m_TextureGroup: -1
@@ -668,7 +661,7 @@ MonoBehaviour:
       m_Rotation: 0
       m_Anchor: 0
     m_Material: {fileID: 0}
-    m_SubmeshIndex: 2
+    m_SubmeshIndex: 3
     m_ManualUV: 0
     elementGroup: -1
     m_TextureGroup: -1
@@ -842,9 +835,10 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e54dc4ce757a8da84bc969c1290763a0, type: 2}
+  - {fileID: 2100000, guid: fd0d869d3e7c972f3baae0551cc53505, type: 2}
   - {fileID: 2100000, guid: 3b1250856d419650bb12eb23327b034c, type: 2}
-  - {fileID: 2100000, guid: b090c13744ced933892c85dfe78678f4, type: 2}
+  - {fileID: 0}
+  - {fileID: 2100000, guid: ae0bb22e38e0ed2ed85a6351509939e0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -966,7 +960,7 @@ MonoBehaviour:
       m_Rotation: 0
       m_Anchor: 0
     m_Material: {fileID: 0}
-    m_SubmeshIndex: 2
+    m_SubmeshIndex: 1
     m_ManualUV: 0
     elementGroup: -1
     m_TextureGroup: -1
@@ -1000,7 +994,7 @@ MonoBehaviour:
       m_Rotation: 0
       m_Anchor: 0
     m_Material: {fileID: 0}
-    m_SubmeshIndex: 2
+    m_SubmeshIndex: 1
     m_ManualUV: 0
     elementGroup: -1
     m_TextureGroup: -1
@@ -1017,7 +1011,7 @@ MonoBehaviour:
       m_Rotation: 360
       m_Anchor: 0
     m_Material: {fileID: 0}
-    m_SubmeshIndex: 1
+    m_SubmeshIndex: 0
     m_ManualUV: 0
     elementGroup: -1
     m_TextureGroup: -1
@@ -1034,7 +1028,7 @@ MonoBehaviour:
       m_Rotation: 0
       m_Anchor: 9
     m_Material: {fileID: 0}
-    m_SubmeshIndex: 0
+    m_SubmeshIndex: 3
     m_ManualUV: 1
     elementGroup: -1
     m_TextureGroup: -1
@@ -1157,9 +1151,10 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e54dc4ce757a8da84bc969c1290763a0, type: 2}
   - {fileID: 2100000, guid: 3b1250856d419650bb12eb23327b034c, type: 2}
-  - {fileID: 2100000, guid: b090c13744ced933892c85dfe78678f4, type: 2}
+  - {fileID: 0}
+  - {fileID: 2100000, guid: ae0bb22e38e0ed2ed85a6351509939e0, type: 2}
+  - {fileID: 2100000, guid: fd0d869d3e7c972f3baae0551cc53505, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1247,7 +1242,7 @@ GameObject:
   - component: {fileID: 8966328022252645031}
   - component: {fileID: 8966328022252645030}
   - component: {fileID: 8966328022252645049}
-  - component: {fileID: 8966328022252645048}
+  - component: {fileID: 3020525563244039446}
   m_Layer: 6
   m_Name: Respawn Zone
   m_TagString: Respawn Zone
@@ -1331,7 +1326,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8966328022252645048
+--- !u!114 &3020525563244039446
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1340,14 +1335,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8966328022252645050}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d19b487476ee18aea70c3a29f0c9816, type: 3}
+  m_Script: {fileID: 11500000, guid: 581ff227769cf9673801951fd2387f39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
-  enterTrigger: {fileID: 0}
-  exitTrigger: {fileID: 0}
-  inZone: {fileID: 11400000, guid: bec8b1aba6aba8e96aa0283a03483884, type: 2}
-  tagToWatch: Player
+  triggeringTag: Player
 --- !u!1 &8966328022730096513
 GameObject:
   m_ObjectHideFlags: 0
@@ -1426,7 +1417,7 @@ MonoBehaviour:
       m_Rotation: 0
       m_Anchor: 0
     m_Material: {fileID: 0}
-    m_SubmeshIndex: 2
+    m_SubmeshIndex: 3
     m_ManualUV: 0
     elementGroup: -1
     m_TextureGroup: -1
@@ -1443,7 +1434,7 @@ MonoBehaviour:
       m_Rotation: 0
       m_Anchor: 0
     m_Material: {fileID: 0}
-    m_SubmeshIndex: 2
+    m_SubmeshIndex: 3
     m_ManualUV: 0
     elementGroup: -1
     m_TextureGroup: -1
@@ -1460,7 +1451,7 @@ MonoBehaviour:
       m_Rotation: 0
       m_Anchor: 0
     m_Material: {fileID: 0}
-    m_SubmeshIndex: 2
+    m_SubmeshIndex: 3
     m_ManualUV: 0
     elementGroup: -1
     m_TextureGroup: -1
@@ -1595,17 +1586,9 @@ MonoBehaviour:
   assetGuid: 
   m_Mesh: {fileID: 0}
   m_IsSelectable: 1
-  m_SelectedFaces: 01000000
-  m_SelectedEdges:
-  - a: 4
-    b: 5
-  - a: 6
-    b: 4
-  - a: 5
-    b: 7
-  - a: 7
-    b: 6
-  m_SelectedVertices: 04000000050000000600000007000000
+  m_SelectedFaces: 
+  m_SelectedEdges: []
+  m_SelectedVertices: 
 --- !u!23 &8966328022730096525
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1625,9 +1608,10 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e54dc4ce757a8da84bc969c1290763a0, type: 2}
+  - {fileID: 2100000, guid: fd0d869d3e7c972f3baae0551cc53505, type: 2}
   - {fileID: 2100000, guid: 3b1250856d419650bb12eb23327b034c, type: 2}
-  - {fileID: 2100000, guid: b090c13744ced933892c85dfe78678f4, type: 2}
+  - {fileID: 0}
+  - {fileID: 2100000, guid: ae0bb22e38e0ed2ed85a6351509939e0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1749,7 +1733,7 @@ MonoBehaviour:
       m_Rotation: 0
       m_Anchor: 0
     m_Material: {fileID: 0}
-    m_SubmeshIndex: 2
+    m_SubmeshIndex: 1
     m_ManualUV: 0
     elementGroup: -1
     m_TextureGroup: -1
@@ -1783,7 +1767,7 @@ MonoBehaviour:
       m_Rotation: 0
       m_Anchor: 0
     m_Material: {fileID: 0}
-    m_SubmeshIndex: 2
+    m_SubmeshIndex: 1
     m_ManualUV: 0
     elementGroup: -1
     m_TextureGroup: -1
@@ -1800,7 +1784,7 @@ MonoBehaviour:
       m_Rotation: 360
       m_Anchor: 0
     m_Material: {fileID: 0}
-    m_SubmeshIndex: 1
+    m_SubmeshIndex: 0
     m_ManualUV: 0
     elementGroup: -1
     m_TextureGroup: -1
@@ -1817,7 +1801,7 @@ MonoBehaviour:
       m_Rotation: 0
       m_Anchor: 9
     m_Material: {fileID: 0}
-    m_SubmeshIndex: 0
+    m_SubmeshIndex: 3
     m_ManualUV: 1
     elementGroup: -1
     m_TextureGroup: -1
@@ -1940,9 +1924,10 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e54dc4ce757a8da84bc969c1290763a0, type: 2}
   - {fileID: 2100000, guid: 3b1250856d419650bb12eb23327b034c, type: 2}
-  - {fileID: 2100000, guid: b090c13744ced933892c85dfe78678f4, type: 2}
+  - {fileID: 0}
+  - {fileID: 2100000, guid: ae0bb22e38e0ed2ed85a6351509939e0, type: 2}
+  - {fileID: 2100000, guid: fd0d869d3e7c972f3baae0551cc53505, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2079,7 +2064,7 @@ MonoBehaviour:
       m_Rotation: 0
       m_Anchor: 0
     m_Material: {fileID: 0}
-    m_SubmeshIndex: 2
+    m_SubmeshIndex: 3
     m_ManualUV: 0
     elementGroup: -1
     m_TextureGroup: -1
@@ -2096,7 +2081,7 @@ MonoBehaviour:
       m_Rotation: 0
       m_Anchor: 0
     m_Material: {fileID: 0}
-    m_SubmeshIndex: 2
+    m_SubmeshIndex: 3
     m_ManualUV: 0
     elementGroup: -1
     m_TextureGroup: -1
@@ -2130,7 +2115,7 @@ MonoBehaviour:
       m_Rotation: 0
       m_Anchor: 0
     m_Material: {fileID: 0}
-    m_SubmeshIndex: 2
+    m_SubmeshIndex: 3
     m_ManualUV: 0
     elementGroup: -1
     m_TextureGroup: -1
@@ -2265,17 +2250,9 @@ MonoBehaviour:
   assetGuid: 
   m_Mesh: {fileID: 0}
   m_IsSelectable: 1
-  m_SelectedFaces: 00000000
-  m_SelectedEdges:
-  - a: 0
-    b: 0
-  - a: 0
-    b: 0
-  - a: 0
-    b: 0
-  - a: 0
-    b: 0
-  m_SelectedVertices: 00000000000000000000000000000000
+  m_SelectedFaces: 
+  m_SelectedEdges: []
+  m_SelectedVertices: 
 --- !u!23 &8966328023420152765
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2295,9 +2272,10 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e54dc4ce757a8da84bc969c1290763a0, type: 2}
+  - {fileID: 2100000, guid: fd0d869d3e7c972f3baae0551cc53505, type: 2}
   - {fileID: 2100000, guid: 3b1250856d419650bb12eb23327b034c, type: 2}
-  - {fileID: 2100000, guid: b090c13744ced933892c85dfe78678f4, type: 2}
+  - {fileID: 0}
+  - {fileID: 2100000, guid: ae0bb22e38e0ed2ed85a6351509939e0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

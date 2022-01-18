@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f6ff40ec52c1583a86f2e54f10814d7, type: 3}
+  m_Name: player_state
+  m_EditorClassIdentifier: 
+  inRespawnZone: {fileID: 11400000, guid: bec8b1aba6aba8e96aa0283a03483884, type: 2}
+  isInSnow: {fileID: 11400000, guid: 428e96e37526ed05581a757092893f16, type: 2}
+  defaultTerrain: {fileID: 11400000, guid: f27665c2b0d82d802a738ebb1149107e, type: 2}
+  snow: {fileID: 11400000, guid: 0520364fe72caeb1c9266293d3c00c27, type: 2}
