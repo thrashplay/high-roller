@@ -24,9 +24,6 @@ public class PlayerState : ScriptableObject
     private readonly List<StateChangeCallback> _stateChangeCallbacks =  new List<StateChangeCallback>();
 
     [SerializeField]
-    private BooleanValue inRespawnZone;
-
-    [SerializeField]
     private BooleanValue isInSnow;
 
     [SerializeField]
@@ -83,7 +80,6 @@ public class PlayerState : ScriptableObject
     }
 
     public bool Respawn() {
-        inRespawnZone.Value = false;
         isInSnow.Value = false;
 
         State = PlayerStateType.Respawning;
@@ -111,7 +107,6 @@ public class PlayerState : ScriptableObject
             default:
                 State = PlayerStateType.Falling;
                 return true;
-
         }
     }
 
@@ -140,14 +135,22 @@ public class PlayerState : ScriptableObject
         return false;
     }
 
-    public bool Land(bool shatter = false) {
+    public bool Land() {
         switch (State) {
             case PlayerStateType.Falling:
-                State = shatter ? PlayerStateType.Shattering : PlayerStateType.Alive;
-                return true;
-
             case PlayerStateType.WinningWhileFalling:
-                State = shatter ? PlayerStateType.Shattering : PlayerStateType.Winning;
+                State = PlayerStateType.Alive;
+                return true;
+        }
+
+        return false;
+    }
+
+    public bool Shatter() {
+        switch (State) {
+            case PlayerStateType.Falling:
+            case PlayerStateType.WinningWhileFalling:
+                State = PlayerStateType.Shattering;
                 return true;
         }
 

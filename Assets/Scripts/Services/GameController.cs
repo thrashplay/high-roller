@@ -7,6 +7,9 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private PlayerConfigModule playerConfig;
 
+    // player state object
+    [SerializeField]
+    private PlayerState playerState;
 
     // services
     private RaceManager _raceManager;
@@ -33,6 +36,8 @@ public class GameController : MonoBehaviour
 
     private void Start() {
         playerConfig.Debug = false;
+        
+        playerState.Reset();
 
         _levelManager = ServiceLocator.Instance.GetService<LevelManager>();
         _raceManager = ServiceLocator.Instance.GetService<RaceManager>();

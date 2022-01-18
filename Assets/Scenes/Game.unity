@@ -15248,6 +15248,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerConfig: {fileID: 11400000, guid: 89d3302f0e70429f5bd1b8ba3bc29d17, type: 2}
+  playerState: {fileID: 11400000, guid: 2237b39598be763a6a7395e79baf60dc, type: 2}
 --- !u!43 &670403353
 Mesh:
   m_ObjectHideFlags: 0
@@ -29882,6 +29883,7 @@ GameObject:
   - component: {fileID: 1504446774}
   - component: {fileID: 1504446773}
   - component: {fileID: 1504446772}
+  - component: {fileID: 1504446775}
   m_Layer: 0
   m_Name: '@Services'
   m_TagString: Untagged
@@ -29944,6 +29946,18 @@ MonoBehaviour:
   _playerPrefab: {fileID: 8397388066573923010, guid: 75306ec3fed329571af80fa840982f83, type: 3}
   _spawnPoint: {x: 0, y: 0, z: 0}
   _state: {fileID: 11400000, guid: 2237b39598be763a6a7395e79baf60dc, type: 2}
+--- !u!114 &1504446775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1504446770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb5f9712e2356cadab5e9652e5360b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &1507411855
 Mesh:
   m_ObjectHideFlags: 0

@@ -2,13 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Main behavior script for the player
 [RequireComponent(typeof(IFallEventEmitter))]
-public class PlayerStateController : MonoBehaviour, IFallListener
-{
-    [SerializeField]
-    private PlayerConfigModule _playerConfig;
-
-    [SerializeField]
+public class Player : MonoBehaviour, IFallListener {
+[SerializeField]
     private PlayerState _state;
 
     private void Start() {

@@ -13,14 +13,6 @@ public class PlayerConfigModule : ScriptableObject
     [SerializeField]
     private float _continuousForce = 10;
 
-    // the distance at which a player is considered to have fallen off a cliff and will respawn
-    [SerializeField]
-    private float _endlessFallHeight = 5;
-    
-    // multiplier to apply to the player's gravity when they are falling
-    [SerializeField]
-    private float _freefallGravityMultipler = 2;
-
     // extra gravity multipler applied when the player is moving down a slope
     [SerializeField]
     private float _slopeSlideBoost = 0;
@@ -41,10 +33,6 @@ public class PlayerConfigModule : ScriptableObject
     [SerializeField]
     private float _reverseBoost = 0;
 
-    // the max distance the player can fall before shattering
-    [SerializeField]
-    private float _safeFallDistance = 0;
-
     // minimum slope before terrain is considered "not flat"
     [SerializeField]
     private float _slopeThreshold = 0;
@@ -64,14 +52,6 @@ public class PlayerConfigModule : ScriptableObject
 
     public float ContinuousForce {
         get { return _continuousForce; }
-    }
-
-    public float EndlessFallHeight {
-        get { return _endlessFallHeight; }
-    }
-
-    public float FreefallGravityMultiplier {
-        get { return _freefallGravityMultipler; }
     }
 
     public float SlopeClimbAssist {
@@ -97,10 +77,6 @@ public class PlayerConfigModule : ScriptableObject
 
     public float ReverseBoost {
         get { return _reverseBoost; }
-    }
-
-    public float SafeFallDistance {
-        get { return _safeFallDistance; }
     }
 
     public float SlopeThreshold {

@@ -23,8 +23,6 @@ public class PlayerManager : MonoBehaviour
 
     public void Despawn() {
         if (_player != null) {
-            Debug.Log("Despawning player.");
-
             _player.SetActive(false);
             Destroy(_player);
             _player = null;
@@ -90,7 +88,6 @@ public class PlayerManager : MonoBehaviour
             case PlayerStateType.FallingToDeath:
             case PlayerStateType.Shattering:
                 // _safeSpawnState = false;
-
                 // TODO: have a separate shattering or falling to death object
                 _state.Respawn();
                 break;

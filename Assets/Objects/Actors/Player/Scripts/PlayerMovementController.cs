@@ -113,12 +113,6 @@ public class PlayerMovementController : MonoBehaviour
                 var upSlope = -1 * _slope;
                 _body.AddForce(playerConfig.SlopeClimbAssist * upSlope, ForceMode.Impulse); 
             }
-        } else if (playerState.MovementState == MovementState.Falling)
-        {
-            if (playerConfig.FreefallGravityMultiplier > 1)
-            {
-                _body.AddForce(Physics.gravity * (playerConfig.FreefallGravityMultiplier - 1), ForceMode.Acceleration); 
-            }
         }
     }
 

@@ -3,18 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class GroundDetector : MonoBehaviour, IGroundDetector
+public class GroundSensor : MonoBehaviour, IGroundDetector
 {
     // flag indicating if the player is currently on the ground
     private bool _grounded = true;
-
-    // emitted when the player leaves the ground
-    [SerializeField]
-    private Trigger _fallingTrigger;
-
-    // emitted when the player lands on the ground; will be passed TerrainData for where they landed
-    [SerializeField]
-    private TriggerWithTerrainData _landedTrigger;
 
     [SerializeField]
     private PlayerConfigModule _playerConfig;
@@ -23,26 +15,34 @@ public class GroundDetector : MonoBehaviour, IGroundDetector
     [SerializeField]
     private string _terrainTag = "Terrain";
 
+    // the game object for the ground the player is currently on
+    private GameObject _currentTerrain;
+
     public bool IsOnGround {
         get { return _grounded; }
+    }
+
+    // returns the terrain data for the ground the player is on, or null
+    // if the player is falling
+    public ITerrainData CurrentTerrain {
+        get {
+            return _currentTerrain == null
+                ? null
+                : TerrainData.FromGameObject(_currentTerrain);
+        }
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        var currentlyGrounded = CheckAboveTerrain(out GameObject terrain);
-        if (currentlyGrounded && !_grounded) {
-            _landedTrigger.Emit(TerrainData.FromGameObject(terrain));
-            _grounded = true;
-        } else if (!currentlyGrounded && _grounded) {
-            _fallingTrigger.Emit();
-            _grounded = false;
-        }
+        _grounded = CheckAboveTerrain(out _currentTerrain);
     }
 
     // returns true if the is object is "on" terrain, and sets the out parameter
     // to be the first piece of such terrain encountered if so
     private bool CheckAboveTerrain(out GameObject terrain) {
+        terrain = null;
+
         var hits = Physics.SphereCastAll(
             transform.position,
             _playerConfig.GroundDetectionRadius,
