@@ -30,8 +30,19 @@ public class Goal : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        if (_inGoal && _playerRigidbody != null && _playerRigidbody.velocity.magnitude <= maximumTriggerSpeed) {
-            _raceManager.GoalReached();
+        if (_inGoal && _playerRigidbody != null ) {
+            _playerRigidbody.angularVelocity *= 0.95F;
+
+            var velocity = _playerRigidbody.velocity;
+            _playerRigidbody.velocity = new Vector3(
+                velocity.x * 0.95F,
+                velocity.y,
+                velocity.z * 0.95F
+            );
+
+            if (_playerRigidbody.velocity.magnitude <= maximumTriggerSpeed) {
+               _raceManager.GoalReached();
+            }
         }
     }
 
