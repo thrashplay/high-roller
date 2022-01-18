@@ -2,9 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public delegate void onFallingDelegate();
+public delegate void onFellOffLevelDelegate();
+public delegate void onLandedDelegate(ITerrainData terrain);
+public delegate void onShatteredDelegate();
+
 [RequireComponent(typeof(GroundSensor), typeof(Rigidbody))]
-public class FallController : MonoBehaviour, IFallEventEmitter
+public class FallController : MonoBehaviour
 {
+    public event onFallingDelegate OnFalling;
+    public event onFellOffLevelDelegate OnFellOffLevel;
+    public event onLandedDelegate OnLanded;
+    public event onShatteredDelegate OnShattered;
+
     [SerializeField]
     private PlayerSettings playerSettings;
 
@@ -15,19 +26,6 @@ public class FallController : MonoBehaviour, IFallEventEmitter
     private GroundSensor _groundSensor;
     private Rigidbody _rigidbody;
     private Transform _transform;
-
-    // set of registered listeners
-    private readonly List<IFallListener> _listeners =  new List<IFallListener>();
-
-    public void AddFallListener(IFallListener listener)
-    {
-        _listeners.Add(listener);
-    }
-
-    public void RemoveFallListener(IFallListener listener)
-    {
-        _listeners.Remove(listener);
-    }
 
     public bool Falling { get; private set; }
     public float DistanceFell { 
@@ -52,7 +50,7 @@ public class FallController : MonoBehaviour, IFallEventEmitter
         var nowFalling = !_groundSensor.IsOnGround;
         if (!Falling && nowFalling) {
             _initialHeight = _transform.position.y;
-            EmitFalling();
+            OnFalling?.Invoke();
         } else if (Falling && !nowFalling) {
             var terrain = _groundSensor.CurrentTerrain;
             HandleLanding(terrain);
@@ -66,7 +64,7 @@ public class FallController : MonoBehaviour, IFallEventEmitter
     private void HandleFallingOffLevel() {
         if (Falling) {
             if (DistanceFell >= playerSettings.Falling.MaxFreefall) {
-                EmitFellOffLevel();
+                OnFellOffLevel?.Invoke();
             }
         }
     }
@@ -84,29 +82,9 @@ public class FallController : MonoBehaviour, IFallEventEmitter
         var safeLanding = terrain.TerrainType.SafeToFall || wasShortDistance;
 
         if (safeLanding) {
-            EmitLanded(terrain);
+            OnLanded?.Invoke(terrain);
         } else { 
-            EmitShattered();
+            OnShattered?.Invoke();
         }
-    }
-
-    private void EmitFalling()
-    {
-        _listeners.ForEach((listener) => listener.OnFalling());
-    }
-
-    private void EmitFellOffLevel()
-    {
-        _listeners.ForEach((listener) => listener.OnFellOffLevel());
-    }
-
-    private void EmitLanded(ITerrainData terrain)
-    {
-        _listeners.ForEach((listener) => listener.OnLanded(terrain));
-    }
-
-    private void EmitShattered()
-    {
-        _listeners.ForEach((listener) => listener.OnShattered());
     }
 }

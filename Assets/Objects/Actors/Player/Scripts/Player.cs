@@ -9,32 +9,32 @@ public class PlayerDeathType {
 public delegate void playerDeathDelegate(PlayerDeathType type);
 
 // Main behavior script for the player
-[RequireComponent(typeof(IFallEventEmitter))]
-public class Player : MonoBehaviour, IFallListener {
+[RequireComponent(typeof(FallController))]
+public class Player : MonoBehaviour {
 [SerializeField]
     private PlayerState _state;
 
     public event playerDeathDelegate OnPlayerDeath;
 
     private void Start() {
-        GetComponent<IFallEventEmitter>().AddFallListener(this);
+        var fallController = GetComponent<FallController>();
+        fallController.OnFellOffLevel += HandleFellOffLevel;
+        fallController.OnShattered += HandleShattered;
     }
 
     private void OnDestroy() {
-        GetComponent<IFallEventEmitter>().RemoveFallListener(this);
+        var fallController = GetComponent<FallController>();
+        fallController.OnFellOffLevel -= HandleFellOffLevel;
+        fallController.OnShattered -= HandleShattered;
     }
 
-    public void OnFalling() { }
-
-    public void OnLanded(ITerrainData terrain) { }
-
-    public void OnFellOffLevel() {
+    public void HandleFellOffLevel() {
         OnPlayerDeath?.Invoke(new PlayerDeathType() {
             Name = "freefall"
         });
     }
 
-    public void OnShattered() {
+    public void HandleShattered() {
         OnPlayerDeath?.Invoke(new PlayerDeathType() {
             Name = "shattered"
         });
