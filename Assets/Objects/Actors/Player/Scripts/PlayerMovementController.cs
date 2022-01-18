@@ -50,10 +50,10 @@ public class PlayerMovementController : MonoBehaviour
             _body.velocity *= terrain.VelocityMultiplier;
         }
 
-        if (playerState.Winning && !playerState.Falling) {
-            _body.angularVelocity *= 0.95F;
-            _body.velocity *= 0.95F;
-        }
+        // if (playerState.Winning && !playerState.Falling) {
+        //     _body.angularVelocity *= 0.95F;
+        //     _body.velocity *= 0.95F;
+        // }
 
         if (_inputController.GetRequestedDirection() == Direction.None) {
             // if (playerState.MovementState.OnSlope) {
@@ -69,8 +69,8 @@ public class PlayerMovementController : MonoBehaviour
 
     private bool IsInputAllowed() {
         return playerState.MovementState.OnGround && playerState.State switch {
-            PlayerStateType.Winning => false,
-            PlayerStateType.WinningWhileFalling => false,
+            // PlayerStateType.Winning => false,
+            // PlayerStateType.WinningWhileFalling => false,
             _ => true
         };
     }

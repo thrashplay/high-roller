@@ -12,26 +12,40 @@ public class GameController : MonoBehaviour
     private PlayerState playerState;
 
     // services
-    private RaceManager _raceManager;
-    private LevelManager _levelManager;
+    [SerializeField]
+    private LevelManager levelManager;
+  
+    [SerializeField]
+    private PlayerManager playerManager;
+  
+    [SerializeField]
+    private RaceManager raceManager;
+
+    [SerializeField]
+    private StatisticsManager statisticsManager;
 
     private void Awake() {
-        ServiceLocator.Instance.Register(this);
+        var services = ServiceLocator.Instance;
+        services.Register(this);
+        services.Register(levelManager);
+        services.Register(playerManager);
+        services.Register(raceManager);
+        services.Register(statisticsManager);
     }
 
     // begins a race for the specified level
     public void BeginRace(LevelData level) {
-        _raceManager.BeginRace(level);
+        raceManager.BeginRace(level);
     }
 
     // quits the current race, returning to level select
     public void QuitRace() {
-        _raceManager.Quit();
+        raceManager.Quit();
     }
 
     // notify the game that the current level's goal has been reached
     public void GoalReached() {
-        _raceManager.GoalReached();
+        raceManager.GoalReached();
     }
 
     private void Start() {
@@ -39,17 +53,12 @@ public class GameController : MonoBehaviour
         
         playerState.Reset();
 
-        _levelManager = ServiceLocator.Instance.GetService<LevelManager>();
-        _raceManager = ServiceLocator.Instance.GetService<RaceManager>();
-
-        _raceManager.OnRaceCompleted.AddListener(OnRaceCompleted);
+        playerManager.OnPlayerDeath += (type) => raceManager.PlayerDied();
+        raceManager.OnRaceCompleted += OnRaceCompleted;
+        raceManager.OnRaceCompleted += statisticsManager.OnRaceComplete;
     }
 
-    private void OnDestroy() {
-        _raceManager.OnRaceCompleted.RemoveListener(OnRaceCompleted);
-    }
-
-    void Update()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape)) {
             QuitRace();
@@ -61,6 +70,6 @@ public class GameController : MonoBehaviour
     }
 
     private void OnRaceCompleted(RaceResults results) {
-        _levelManager.LoadLevel(ResourceManager.GetInstance().Load<LevelData>("level_select"));
+        levelManager.LoadLevel(ResourceManager.GetInstance().Load<LevelData>("level_select"));
     }
 }

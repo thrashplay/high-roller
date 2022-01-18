@@ -16,10 +16,12 @@ public class RaceResults {
     public float ElapsedTime { get; set; }
 }
 
+public delegate void raceCompletedDelegate(RaceResults result);
+
 // Ongoing status for the current in-progress race.
 public class RaceManager : MonoBehaviour
 {
-    public RaceCompletedTrigger OnRaceCompleted { get; private set; }
+    public event raceCompletedDelegate OnRaceCompleted;
 
     // whether a race is currently active or not
     public bool Active { 
@@ -29,7 +31,7 @@ public class RaceManager : MonoBehaviour
     }
 
     // how many times the player died during the current race
-    public int Deaths { get; set; }
+    public int Deaths { get; private set; }
 
     // elapsed time from when the race was started until now
     public float ElapsedTime {
@@ -55,18 +57,23 @@ public class RaceManager : MonoBehaviour
     }
 
     public void GoalReached() {
-        OnRaceCompleted.Emit(CreateResults(true));
+        if (Active) {
+            OnRaceCompleted?.Invoke(CreateResults(true));
+        }
         Reset();
+    }
+
+    public void PlayerDied() {
+        if (Active) {
+            Deaths++;
+        }
     }
 
     public void Quit() {
-        OnRaceCompleted.Emit(CreateResults(false));
+        if (Active) {
+            OnRaceCompleted?.Invoke(CreateResults(false));
+        }
         Reset();
-    }
-
-    private void Awake() {
-        ServiceLocator.Instance.Register(this);
-        OnRaceCompleted = ScriptableObject.CreateInstance<RaceCompletedTrigger>();
     }
 
     private void Start() {

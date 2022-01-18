@@ -24,13 +24,13 @@ public class PortalController : MonoBehaviour
     [SerializeField]
     private Text zoneNameText;
 
-    private LevelManager _levelManager;
+    private GameController _gameController;
 
-    private StatisticsService _statistics;
+    private StatisticsManager _statistics;
 
     private void Start() {
-        _levelManager = ServiceLocator.Instance.GetService<LevelManager>();
-        _statistics = ServiceLocator.Instance.GetService<StatisticsService>();
+        _gameController = ServiceLocator.Instance.GetService<GameController>();
+        _statistics = ServiceLocator.Instance.GetService<StatisticsManager>();
 
         zoneNameText.text = level.Description;
     }
@@ -43,7 +43,7 @@ public class PortalController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.CompareTag(triggeringTag)) {
-            _levelManager.LoadLevel(level);
+            _gameController.BeginRace(level);
         }
     }
 }

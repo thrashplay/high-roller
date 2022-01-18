@@ -2,11 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class PlayerDeathType {
+    public string Name { get; set; }
+}
+
+public delegate void playerDeathDelegate(PlayerDeathType type);
+
 // Main behavior script for the player
 [RequireComponent(typeof(IFallEventEmitter))]
 public class Player : MonoBehaviour, IFallListener {
 [SerializeField]
     private PlayerState _state;
+
+    public event playerDeathDelegate OnPlayerDeath;
 
     private void Start() {
         GetComponent<IFallEventEmitter>().AddFallListener(this);
@@ -16,25 +24,19 @@ public class Player : MonoBehaviour, IFallListener {
         GetComponent<IFallEventEmitter>().RemoveFallListener(this);
     }
 
-    public void OnFalling() {
-        _state.Fall();
-    }
+    public void OnFalling() { }
 
-    public void OnLanded(ITerrainData terrain) {
-        _state.Land();
-    }
+    public void OnLanded(ITerrainData terrain) { }
 
     public void OnFellOffLevel() {
-        _state.FellTooFar();
+        OnPlayerDeath?.Invoke(new PlayerDeathType() {
+            Name = "freefall"
+        });
     }
 
     public void OnShattered() {
-        _state.Shatter();
-    }
-
-    private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.CompareTag("Goal")) {
-            _state.GoalReached();
-        }
+        OnPlayerDeath?.Invoke(new PlayerDeathType() {
+            Name = "shattered"
+        });
     }
 }

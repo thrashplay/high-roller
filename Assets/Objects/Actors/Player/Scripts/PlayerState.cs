@@ -4,14 +4,10 @@ using UnityEngine;
 
 public enum PlayerStateType {
     Alive,
-    Dizzy,
-    Falling,
-    FallingToDeath,
-    NeverSpawned,
-    Respawning,
+    Dead,
+    Freefall,
     Shattering,
-    Winning,
-    WinningWhileFalling
+    Spawning,
 }
 
 public delegate void StateChangeCallback(PlayerStateType state);
@@ -19,7 +15,7 @@ public delegate void StateChangeCallback(PlayerStateType state);
 [CreateAssetMenu(fileName = "PlayerState", menuName = "ScriptableObjects/PlayerState", order = 1)]
 public class PlayerState : ScriptableObject
 {
-    private PlayerStateType _state = PlayerStateType.NeverSpawned;
+    private PlayerStateType _state = PlayerStateType.Alive;
 
     private readonly List<StateChangeCallback> _stateChangeCallbacks =  new List<StateChangeCallback>();
 
@@ -28,9 +24,6 @@ public class PlayerState : ScriptableObject
 
     [SerializeField]
     private TerrainType defaultTerrain;
-
-    [SerializeField]
-    private TerrainType snow;
 
     private void Awake() 
     {
@@ -50,7 +43,7 @@ public class PlayerState : ScriptableObject
     public MovementState MovementState { get; set; }
 
     public void Reset() {
-        State = PlayerStateType.NeverSpawned;
+        State = PlayerStateType.Alive;
     }
 
     public PlayerStateType State {
@@ -63,98 +56,54 @@ public class PlayerState : ScriptableObject
         }
     }
 
-    // return true if the state indicates the player is in freefall
-    public bool Falling {
+    public bool Dying {
         get {
-            return _state == PlayerStateType.Falling || _state == PlayerStateType.WinningWhileFalling;
+            return _state == PlayerStateType.Freefall || _state == PlayerStateType.Shattering;
+        }
+    }
+
+    public bool Dead {
+        get {
+            return _state == PlayerStateType.Dead || _state == PlayerStateType.Spawning;
         }
     }
 
     public TerrainType CurrentTerrain { get; set; }
 
-    // return true if the state indicates the player has reached the goal
-    public bool Winning {
-        get {
-            return _state == PlayerStateType.Winning || _state == PlayerStateType.WinningWhileFalling;
-        }
-    }
-
-    public bool Respawn() {
-        isInSnow.Value = false;
-
-        State = PlayerStateType.Respawning;
-
+    public bool Die() {
+        State = PlayerStateType.Dead;
         return true;
-    }
-
-    public bool RespawnComplete() {
-        State = PlayerStateType.Alive;
-        return true;
-    }
-
-    public bool Fall() {
-        switch (State) {
-            case PlayerStateType.Falling:
-            case PlayerStateType.FallingToDeath:
-            case PlayerStateType.WinningWhileFalling:
-                // already falling!
-                return false;
-
-            case PlayerStateType.Winning:
-                State = PlayerStateType.WinningWhileFalling;
-                return true;
-
-            default:
-                State = PlayerStateType.Falling;
-                return true;
-        }
     }
 
     public bool FellTooFar() {
-        if (Falling) {
-            State = PlayerStateType.FallingToDeath;
-            return true;
+        // if we are already shattering or dead, don't change our state
+        if (State == PlayerStateType.Shattering || State == PlayerStateType.Dead) {
+            return false;
         }
 
-        return false;
-    }
-
-    public bool GoalReached() {
-        switch (State) {
-            case PlayerStateType.Alive:
-            case PlayerStateType.Dizzy:
-            case PlayerStateType.Respawning:
-                State = PlayerStateType.Winning;
-                return true;
-
-            case PlayerStateType.Falling:
-                State = PlayerStateType.WinningWhileFalling;
-                return true;
-        }
-
-        return false;
-    }
-
-    public bool Land() {
-        switch (State) {
-            case PlayerStateType.Falling:
-            case PlayerStateType.WinningWhileFalling:
-                State = PlayerStateType.Alive;
-                return true;
-        }
-
-        return false;
+        State = PlayerStateType.Freefall;
+        return true;
     }
 
     public bool Shatter() {
         switch (State) {
-            case PlayerStateType.Falling:
-            case PlayerStateType.WinningWhileFalling:
+            case PlayerStateType.Alive:
+            case PlayerStateType.Freefall:
                 State = PlayerStateType.Shattering;
                 return true;
         }
 
         return false;
+    }
+
+    public bool Spawn() {
+        State = PlayerStateType.Spawning;
+        return true;
+    }
+
+    public bool SpawnComplete() {
+        State = PlayerStateType.Alive;
+        return true;
     }
 
     private void EmitStateChange(PlayerStateType state) {
